@@ -1,2 +1,2 @@
 # TrailXplorer
-Android application.
+Android application. Running application. 
