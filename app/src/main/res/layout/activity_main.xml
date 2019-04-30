@@ -13,48 +13,79 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:layout_margin="20dp"
+        android:textSize="32sp"
         android:text="@string/time_run"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <!-- Text View with the total distance ran. -->
         <TextView
             android:id="@+id/totDist"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="16sp"
             android:text="@string/tot_dist"/>
 
         <!-- Text View with the average speed. -->
         <TextView
             android:id="@+id/aveSpeed"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="16sp"
             android:text="@string/ave_speed"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <!-- Text View with the maximum altitude. -->
-        <TextView
-            android:id="@+id/maxAlt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/max_alt"/>
 
         <!-- Text View with the minimum altitude. -->
         <TextView
             android:id="@+id/minAlt"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="16sp"
             android:text="@string/min_alt"/>
 
+        <!-- Text View with the current altitude. -->
+        <TextView
+            android:id="@+id/curAlt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:text="@string/cur_alt"/>
+
+        <!-- Text View with the maximum altitude. -->
+        <TextView
+            android:id="@+id/maxAlt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:text="@string/max_alt"/>
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/startBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/start_btn"/>
 
 </LinearLayout>
