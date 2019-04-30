@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">TrailXplorer</string>
     <string name="time_run">00:00:00</string>
+    <string name="time_run2">Time ran</string>
     <string name="tot_dist">00 km</string>
-    <string name="ave_speed">00 km/h</string>
+    <string name="tot_dist2">Distance ran</string>
+    <string name="cur_speed">00 km/h</string>
+    <string name="cur_speed2">Average speed</string>
     <string name="min_alt">00 m</string>
+    <string name="min_alt2">Minimum Altitude</string>
     <string name="cur_alt">00 m</string>
+    <string name="cur_alt2">Current Altitude</string>
     <string name="max_alt">00 m</string>
+    <string name="max_alt2">Maximum</string>
     <string name="start_btn">Bouton Moche</string>
 </resources>
