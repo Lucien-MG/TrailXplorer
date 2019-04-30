@@ -25,7 +25,19 @@ import java.util.Map;
 public class GpsHelper {
     // private fields of the class
     private TextView tv_lat, tv_long;
+
+    // Location:
     private LocationManager lm;
+    private LocationListener ll;
+    private Location la;
+    private Location lb;
+
+    // Stats:
+    private long TotalDistance;
+    private long MinAltitude;
+    private long MaxAltitude;
+
+
     private int RequestAnswer;
 
     // Contain message send by gps:
@@ -43,9 +55,6 @@ public class GpsHelper {
         ActivityContext = context;
         A_Activity = activity;
 
-        // Init location manager:
-        lm = (LocationManager) context.getSystemService(context.LOCATION_SERVICE);
-
         // List of permissions needed:
         String[] perms = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
                                       Manifest.permission.ACCESS_FINE_LOCATION,
@@ -59,14 +68,14 @@ public class GpsHelper {
     }
 
     // private method that will add a location listener to the location manager
-    private LocationManager addLocationListener() {
+    private void addLocationListener() {
         if (ActivityCompat.checkSelfPermission(ActivityContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(ActivityContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             toast = Toast.makeText(ActivityContext, "The application has not the permission to use GPS.", Toast.LENGTH_LONG);
             toast.show();
 
-            return null;
+            return;
         }
 
         if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -79,15 +88,16 @@ public class GpsHelper {
             toast.show();
         }
 
-        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, new LocationListener() {
+        ll = new LocationListener() {
 
             @Override
             public void onLocationChanged(Location location) {
-                // the location of the device has changed so update the
-                // textviews to reflect this
+                // the location of the device has changed so update the TextViews to reflect this.
                 toast = Toast.makeText(ActivityContext, "test: " + location.getLatitude(), Toast.LENGTH_LONG);
                 toast.show();
 
+                updateAltitude(location);
+                updateDistance(location);
                 updateUI(location);
             }
 
@@ -146,22 +156,47 @@ public class GpsHelper {
             public void onStatusChanged(String provider, int status, Bundle extras) {
 
             }
-        });
+        };
 
-        return lm;
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, ll);
     }
 
     public void start() {
+        // Init location manager:
+        lm = (LocationManager) ActivityContext.getSystemService(ActivityContext.LOCATION_SERVICE);
         this.addLocationListener();
     }
 
     public void stop() {
-
+        lm.removeUpdates(ll);
+        lm = null;
     }
 
     private void updateUI(Location location) {
         //tv_uiInterface.get("time_run").setText(location.getSpeed() + " km/h");
         tv_uiInterface.get("current_speed").setText((int)location.getSpeed() + " km/h");
-        tv_uiInterface.get("current_altitude").setText((int)location.getAltitude() + " m");
+        tv_uiInterface.get("current_altitude").setText((long)location.getAltitude() + " m");
+        tv_uiInterface.get("minimum_altitude").setText(MinAltitude + " m");
+        tv_uiInterface.get("maximum_altitude").setText(MaxAltitude + " m");
+        tv_uiInterface.get("total_distance").setText(TotalDistance + " km");
+    }
+
+    private void updateDistance(Location location) {
+        lb = new Location(LocationManager.NETWORK_PROVIDER);
+        lb.setLatitude(location.getLatitude());
+        lb.setLongitude(location.getLongitude());
+
+        if (la != null)
+            TotalDistance += la.distanceTo(lb);
+
+        la = lb;
+    }
+
+    private void updateAltitude(Location location) {
+        if (location.getAltitude() < MinAltitude || MinAltitude == 0)
+            MinAltitude = (long) location.getAltitude();
+
+        if (location.getAltitude() > MaxAltitude)
+            MaxAltitude = (long) location.getAltitude();
     }
 }
