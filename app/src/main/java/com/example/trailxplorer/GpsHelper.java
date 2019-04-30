@@ -1,11 +1,13 @@
 package com.example.trailxplorer;
 
-// Location import:
-
 import android.Manifest;
 import android.app.Activity;
+
+// Content import:
 import android.content.Context;
 import android.content.pm.PackageManager;
+
+// Location import:
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -24,14 +26,11 @@ public class GpsHelper {
     private Context ActivityContext;
     private Activity A_Activity;
 
-    public GpsHelper(Context context, Activity activity, TextView latitudeView, TextView longitudeView) {
+    public GpsHelper(Context context, Activity activity) {
         ActivityContext = context;
         A_Activity = activity;
 
         lm = (LocationManager) context.getSystemService(context.LOCATION_SERVICE);
-
-        tv_lat = latitudeView;
-        tv_long = longitudeView;
 
         ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, RequestAnswer);
 
@@ -65,8 +64,6 @@ public class GpsHelper {
             public void onLocationChanged(Location location) {
                 // the location of the device has changed so update the
                 // textviews to reflect this
-                tv_lat.setText("Latitude: " + location.getLatitude());
-                tv_long.setText("Longitude: " + location.getLongitude());
                 Toast t = Toast.makeText(ActivityContext, "test: " + location.getLatitude(), Toast.LENGTH_LONG);
                 t.show();
             }
@@ -76,8 +73,8 @@ public class GpsHelper {
                 // if GPS has been disabled then update the textviews to reflect
                 // this
                 if (provider == LocationManager.GPS_PROVIDER) {
-                    tv_lat.setText("Latitude");
-                    tv_long.setText("Longitude");
+                    //tv_lat.setText("Latitude");
+                    //tv_long.setText("Longitude");
                 }
             }
 
@@ -110,7 +107,9 @@ public class GpsHelper {
             }
 
             @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {}
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
         });
 
         return lm;

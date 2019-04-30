@@ -14,10 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GpsHelper gpsHelper = new GpsHelper(this,
-                MainActivity.this,
-                (TextView) findViewById(R.id.tv_lat),
-                (TextView) findViewById(R.id.tv_long));
+        GpsHelper gpsHelper = new GpsHelper(this, MainActivity.this);
 
         lm = gpsHelper.addLocationListener();
     }
