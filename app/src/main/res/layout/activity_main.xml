@@ -7,11 +7,54 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
+    <!-- Text View with the time ran. -->
     <TextView
         android:id="@+id/timeRun"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="00:00:00"/>
+        android:text="@string/time_run"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Text View with the total distance ran. -->
+        <TextView
+            android:id="@+id/totDist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tot_dist"/>
+
+        <!-- Text View with the average speed. -->
+        <TextView
+            android:id="@+id/aveSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ave_speed"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Text View with the maximum altitude. -->
+        <TextView
+            android:id="@+id/maxAlt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/max_alt"/>
+
+        <!-- Text View with the minimum altitude. -->
+        <TextView
+            android:id="@+id/minAlt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/min_alt"/>
+
+    </LinearLayout>
 
 </LinearLayout>
