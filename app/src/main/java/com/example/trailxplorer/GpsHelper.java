@@ -79,7 +79,7 @@ public class GpsHelper {
             toast.show();
         }
 
-        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 0, new LocationListener() {
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, new LocationListener() {
 
             @Override
             public void onLocationChanged(Location location) {
@@ -153,7 +153,7 @@ public class GpsHelper {
 
     private void updateUI(Location location) {
         //tv_uiInterface.get("time_run").setText(location.getSpeed() + " km/h");
-        tv_uiInterface.get("current_speed").setText((int)location.getSpeed() + "km/h");
+        tv_uiInterface.get("current_speed").setText((int)location.getSpeed() + " km/h");
         tv_uiInterface.get("current_altitude").setText((int)location.getAltitude() + " m");
     }
 }

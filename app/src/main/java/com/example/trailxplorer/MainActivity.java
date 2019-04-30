@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -13,7 +15,8 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LocationManager lm;
+    // Timer:
+    TimerHelper timer;
 
     // All text view useful for GPS:
     Map<String, TextView> tv_uiInterface = new HashMap<String, TextView>();
@@ -31,7 +34,11 @@ public class MainActivity extends AppCompatActivity {
 
         GpsHelper gpsHelper = new GpsHelper(this, MainActivity.this, tv_uiInterface);
 
-        lm = gpsHelper.addLocationListener();
+        gpsHelper.addLocationListener();
+
+        timer = new TimerHelper((TextView) findViewById(R.id.timeRun));
+
+        initMainButton();
     }
 
     //Initializes the Toolbar.
@@ -42,9 +49,31 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void initMainButton() {
+        Button MainButton = (Button) findViewById(R.id.startBtn);
+
+        MainButton.setText("start");
+        MainButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Button b = (Button) v;
+                if (b.getText().equals("stop")) {
+                    timer.stop();
+                    b.setText("start");
+                } else {
+                    timer.start();
+                    b.setText("stop");
+                }
+            }
+        });
+    }
+
     private void initUiInterface() {
-        tv_uiInterface.put("time_run", (TextView) findViewById(R.id.timeRun));
         tv_uiInterface.put("current_speed", (TextView) findViewById(R.id.curSpeed));
         tv_uiInterface.put("current_altitude", (TextView) findViewById(R.id.curAlt));
+        tv_uiInterface.put("total_distance", (TextView) findViewById(R.id.totDist));
+        tv_uiInterface.put("minimum_altitude", (TextView) findViewById(R.id.minAlt));
+        tv_uiInterface.put("maximum_altitude", (TextView) findViewById(R.id.maxAlt));
     }
 }
