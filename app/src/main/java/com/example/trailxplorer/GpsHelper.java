@@ -27,15 +27,20 @@ public class GpsHelper {
     private Activity A_Activity;
 
     public GpsHelper(Context context, Activity activity) {
+        // Get application context:
         ActivityContext = context;
         A_Activity = activity;
 
+        // Init location manager:
         lm = (LocationManager) context.getSystemService(context.LOCATION_SERVICE);
 
-        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, RequestAnswer);
+        // List of permissions needed:
+        String[] perms = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                                      Manifest.permission.ACCESS_FINE_LOCATION,
+                                      Manifest.permission.ACCESS_NETWORK_STATE};
 
-        Toast t = Toast.makeText(ActivityContext, "Begin GPS", Toast.LENGTH_LONG);
-        t.show();
+        // Request Permission to acces to the GPS:
+        ActivityCompat.requestPermissions(activity, perms, RequestAnswer);
     }
 
     // public method that will add a location listener to the location manager
