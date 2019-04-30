@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:text="@string/time_run2"/>
 
     <LinearLayout
@@ -68,8 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:textSize="16sp"
-            android:text="@string/tot_dist"/>
+            android:textSize="12sp"
+            android:text="@string/tot_dist2"/>
 
         <!-- Text View with the average speed title. -->
         <TextView
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:text="@string/cur_speed2"/>
 
     </LinearLayout>
@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:text="@string/min_alt2"/>
 
         <!-- Text View with the current altitude title. -->
@@ -146,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:text="@string/cur_alt2"/>
 
         <!-- Text View with the maximum altitude title. -->
@@ -156,7 +156,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:text="@string/max_alt2"/>
 
     </LinearLayout>
