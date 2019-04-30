@@ -18,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
     // Timer:
     TimerHelper timer;
 
+    // GPS:
+    GpsHelper gps;
+
     // All text view useful for GPS:
     Map<String, TextView> tv_uiInterface = new HashMap<String, TextView>();
 
@@ -32,9 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         initUiInterface();
 
-        GpsHelper gpsHelper = new GpsHelper(this, MainActivity.this, tv_uiInterface);
-
-        gpsHelper.addLocationListener();
+        gps = new GpsHelper(this, MainActivity.this, tv_uiInterface);
 
         timer = new TimerHelper((TextView) findViewById(R.id.timeRun));
 
@@ -60,9 +61,11 @@ public class MainActivity extends AppCompatActivity {
                 Button b = (Button) v;
                 if (b.getText().equals("stop")) {
                     timer.stop();
+                    gps.stop();
                     b.setText("start");
                 } else {
                     timer.start();
+                    gps.start();
                     b.setText("stop");
                 }
             }

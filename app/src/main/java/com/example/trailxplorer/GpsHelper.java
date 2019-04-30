@@ -58,8 +58,8 @@ public class GpsHelper {
         tv_uiInterface = uiInterface;
     }
 
-    // public method that will add a location listener to the location manager
-    public LocationManager addLocationListener() {
+    // private method that will add a location listener to the location manager
+    private LocationManager addLocationListener() {
         if (ActivityCompat.checkSelfPermission(ActivityContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(ActivityContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -149,6 +149,14 @@ public class GpsHelper {
         });
 
         return lm;
+    }
+
+    public void start() {
+        this.addLocationListener();
+    }
+
+    public void stop() {
+
     }
 
     private void updateUI(Location location) {
