@@ -93,9 +93,6 @@ public class GpsHelper {
             @Override
             public void onLocationChanged(Location location) {
                 // the location of the device has changed so update the TextViews to reflect this.
-                toast = Toast.makeText(ActivityContext, "test: " + location.getLatitude(), Toast.LENGTH_LONG);
-                toast.show();
-
                 updateAltitude(location);
                 updateDistance(location);
                 updateUI(location);
@@ -159,6 +156,10 @@ public class GpsHelper {
         };
 
         lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, ll);
+
+        // First variable initialisation:
+        Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        MinAltitude = (long) location.getAltitude();
     }
 
     public void start() {
@@ -174,11 +175,11 @@ public class GpsHelper {
 
     private void updateUI(Location location) {
         //tv_uiInterface.get("time_run").setText(location.getSpeed() + " km/h");
-        tv_uiInterface.get("current_speed").setText((int)location.getSpeed() + " km/h");
+        tv_uiInterface.get("current_speed").setText(location.getSpeed() + " km/h");
         tv_uiInterface.get("current_altitude").setText((long)location.getAltitude() + " m");
         tv_uiInterface.get("minimum_altitude").setText(MinAltitude + " m");
         tv_uiInterface.get("maximum_altitude").setText(MaxAltitude + " m");
-        tv_uiInterface.get("total_distance").setText(TotalDistance + " km");
+        tv_uiInterface.get("total_distance").setText(String.format("%.2f km", (float) TotalDistance / 1000));
     }
 
     private void updateDistance(Location location) {
@@ -193,7 +194,7 @@ public class GpsHelper {
     }
 
     private void updateAltitude(Location location) {
-        if (location.getAltitude() < MinAltitude || MinAltitude == 0)
+        if (location.getAltitude() < MinAltitude)
             MinAltitude = (long) location.getAltitude();
 
         if (location.getAltitude() > MaxAltitude)
