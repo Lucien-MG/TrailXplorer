@@ -185,6 +185,15 @@
             android:layout_gravity="center_horizontal|bottom"
             android:text="@string/start_btn" />
 
+        <!-- Button to pause the run. -->
+        <Button
+            android:id="@+id/pauseBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:text="@string/pause_btn"/>
+
     </LinearLayout>
 
 </LinearLayout>
+
