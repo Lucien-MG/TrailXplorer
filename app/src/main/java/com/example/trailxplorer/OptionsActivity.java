@@ -99,6 +99,7 @@ public class OptionsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Handles the activity pause, to dismiss the popup.
     @Override
     protected void onPause() {
         super.onPause();
@@ -108,6 +109,7 @@ public class OptionsActivity extends AppCompatActivity {
         }
     }
 
+    //Handles the activity destroy, to dismiss the popup.
     @Override
     protected void onDestroy() {
         super.onDestroy();

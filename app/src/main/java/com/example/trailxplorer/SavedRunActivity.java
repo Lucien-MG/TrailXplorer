@@ -20,7 +20,7 @@ public class SavedRunActivity extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved);
+        setContentView(R.layout.activity_savedrun);
 
         //Initializing the Toolbar.
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
