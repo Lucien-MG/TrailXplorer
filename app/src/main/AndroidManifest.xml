@@ -34,7 +34,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.trailxplorer.MainActivity" />
         </activity>
-        *<activity
+        <activity
         android:name=".SavedRunActivity"
         android:parentActivityName=".SavedActivity">
         <meta-data
