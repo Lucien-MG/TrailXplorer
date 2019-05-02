@@ -3,6 +3,7 @@ package com.example.trailxplorer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +11,14 @@ import android.view.MenuInflater;
 public class SavedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Setting the style depending on the activation of the night mode.
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkAppTheme);
+        }
+        else {
+            setTheme(R.style.LightAppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved);
 

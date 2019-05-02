@@ -10,7 +10,8 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:weightSum="5">
+        android:weightSum="5"
+        android:background="?attr/backgroundcolor">
 
         <TextView
             android:id="@+id/savedList"
@@ -18,7 +19,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:ellipsize="end"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:textColor="?attr/textcolor"/>
 
     </LinearLayout>
 
