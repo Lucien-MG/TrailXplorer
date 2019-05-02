@@ -37,9 +37,6 @@ public class GpsHelper {
     private long MinAltitude;
     private long MaxAltitude;
 
-
-    private int RequestAnswer;
-
     // Contain message send by gps:
     private Toast toast;
 
@@ -54,14 +51,6 @@ public class GpsHelper {
         // Get application context:
         ActivityContext = context;
         A_Activity = activity;
-
-        // List of permissions needed:
-        String[] perms = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                                      Manifest.permission.ACCESS_FINE_LOCATION,
-                                      Manifest.permission.INTERNET};
-
-        // Request Permission to acces to the GPS:
-        ActivityCompat.requestPermissions(activity, perms, RequestAnswer);
 
         // Get interface:
         tv_uiInterface = uiInterface;
@@ -174,7 +163,6 @@ public class GpsHelper {
     }
 
     private void updateUI(Location location) {
-        //tv_uiInterface.get("time_run").setText(location.getSpeed() + " km/h");
         tv_uiInterface.get("current_speed").setText(location.getSpeed() + " km/h");
         tv_uiInterface.get("current_altitude").setText((long)location.getAltitude() + " m");
         tv_uiInterface.get("minimum_altitude").setText(MinAltitude + " m");

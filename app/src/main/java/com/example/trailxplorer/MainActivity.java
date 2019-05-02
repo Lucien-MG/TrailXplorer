@@ -1,6 +1,8 @@
 package com.example.trailxplorer;
 
+import android.Manifest;
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,11 +24,17 @@ public class MainActivity extends AppCompatActivity {
     // Timer:
     TimerHelper timer;
 
+    // GPX:
+    GpxHelper gpx;
+
     // GPS:
     GpsHelper gps;
 
     // All text view useful for GPS:
     Map<String, TextView> tv_uiInterface = new HashMap<String, TextView>();
+
+    // Permission answer:
+    private int RequestAnswer;
 
     //Popup Menu.
     private PopupMenu popup;
@@ -44,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        askPermissions();
+
         //Initializing the Toolbar.
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -56,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
         initUiInterface();
 
         gps = new GpsHelper(this, MainActivity.this, tv_uiInterface);
+
+        gpx = new GpxHelper(MainActivity.this, this);
+        gpx.openFile("Test");
 
         timer = new TimerHelper((TextView) findViewById(R.id.timeRun));
 
@@ -146,5 +159,18 @@ public class MainActivity extends AppCompatActivity {
         tv_uiInterface.put("total_distance", (TextView) findViewById(R.id.totDist));
         tv_uiInterface.put("minimum_altitude", (TextView) findViewById(R.id.minAlt));
         tv_uiInterface.put("maximum_altitude", (TextView) findViewById(R.id.maxAlt));
+    }
+
+    private void askPermissions() {
+        // List of permissions needed:
+        String[] perms = new String[]{
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.INTERNET};
+
+        // Request Permission to acces to the GPS:
+        ActivityCompat.requestPermissions(this, perms, RequestAnswer);
     }
 }
