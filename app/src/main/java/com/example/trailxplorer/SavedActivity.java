@@ -9,11 +9,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.SimpleAdapter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class SavedActivity extends AppCompatActivity {
 
     private PopupMenu popupSaved;
+
+    private ListView savedList;
+    private SimpleAdapter adapter;
+    private HashMap<String, String> item;
+    private List<HashMap<String, String>> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +46,22 @@ public class SavedActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(android.R.drawable.ic_menu_sort_by_size);
         ab.setDisplayHomeAsUpEnabled(true);
+
+        //Initializing the HashMap and the list.
+        item = new HashMap<>();
+        list = new ArrayList<>();
+
+        //Filling the Hashmap and the list.
+        item.put("title", "Test1");
+        item.put("time", "Time: 00:00:00");
+        item.put("distance", "Distance: 0 km");
+        list.add(item);
+
+        //Initializing the list view.
+        savedList = findViewById(R.id.listView);
+        adapter = new SimpleAdapter(this, list, R.layout.activity_listview,
+                new String[] {"title", "time", "distance"}, new int[] {R.id.savedList, R.id.savedListTime, R.id.savedListDistance});
+        savedList.setAdapter(adapter);
     }
 
     @Override
