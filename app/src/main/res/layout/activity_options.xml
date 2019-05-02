@@ -23,6 +23,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="?attr/backgroundcolor">
 
         <TextView
@@ -33,6 +35,7 @@
             android:text="@string/night_mode"
             android:textSize="24sp"
             android:layout_gravity="center"
+            android:textStyle="bold"
             android:textColor="?attr/textcolor"/>
 
         <Switch
@@ -50,6 +53,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="?attr/backgroundcolor">
 
         <TextView
@@ -60,6 +65,7 @@
             android:text="@string/eco_mode"
             android:textSize="24sp"
             android:layout_gravity="center"
+            android:textStyle="bold"
             android:textColor="?attr/textcolor"/>
 
         <Switch

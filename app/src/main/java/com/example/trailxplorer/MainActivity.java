@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     // All text view useful for GPS:
     Map<String, TextView> tv_uiInterface = new HashMap<String, TextView>();
 
+    //Popup Menu.
+    private PopupMenu popup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Setting the style depending on the activation of the night mode.
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            PopupMenu popup = new PopupMenu(this, findViewById(R.id.my_toolbar));
+            popup = new PopupMenu(this, findViewById(R.id.my_toolbar));
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.popup_menu, popup.getMenu());
 
@@ -96,6 +99,24 @@ public class MainActivity extends AppCompatActivity {
             popup.show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (popup != null) {
+            popup.dismiss();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (popup != null) {
+            popup.dismiss();
+        }
     }
 
     private void initMainButton() {
