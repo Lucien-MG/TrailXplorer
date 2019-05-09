@@ -14,6 +14,9 @@
     <string name="max_alt">0 m</string>
     <string name="max_alt2">Maximum Altitude</string>
 
+    <string name="ave_alt">0 m</string>
+    <string name="ave_alt2">Average Altitude</string>
+
     <string name="night_mode">Night Mode</string>
     <string name="eco_mode">Economy Mode</string>
 
