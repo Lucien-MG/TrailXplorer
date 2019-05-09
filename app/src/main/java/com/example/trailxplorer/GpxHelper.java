@@ -23,7 +23,7 @@ public class GpxHelper {
 
     private int RequestAnswer;
 
-    private String dirName = "GPStracks";
+    private String dirName = "GPStracks/";
     private File directory;
     private File actualFile;
     private File[] listFiles;
@@ -43,7 +43,7 @@ public class GpxHelper {
         String content = null;
 
         try {
-            File file = new File(directory.getAbsolutePath() + "/" + fileName);
+            File file = new File(directory.getAbsolutePath() + "/" + fileName + ".gpx");
 
             if (!file.exists())
                 file.createNewFile();
@@ -89,7 +89,7 @@ public class GpxHelper {
                 }
             }
 
-            toast = Toast.makeText(context, "Create " + dir.getAbsolutePath(), Toast.LENGTH_LONG);
+            toast = Toast.makeText(context, "truc" + dir.getAbsolutePath(), Toast.LENGTH_LONG);
             toast.show();
 
             return dir;

@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         gps = new GpsHelper(this, MainActivity.this, tv_uiInterface);
 
         gpx = new GpxHelper(MainActivity.this, this);
-        gpx.openFile("Test");
 
         timer = new TimerHelper((TextView) findViewById(R.id.timeRun));
 
