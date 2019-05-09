@@ -14,9 +14,11 @@ public class SavedRunActivity extends AppCompatActivity {
         //Setting the style depending on the activation of the night mode.
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkAppTheme);
+            GraphView.setNight(true);
         }
         else {
             setTheme(R.style.LightAppTheme);
+            GraphView.setNight(false);
         }
 
         super.onCreate(savedInstanceState);
