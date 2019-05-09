@@ -163,7 +163,7 @@ public class GpsHelper {
     }
 
     private void updateUI(Location location) {
-        tv_uiInterface.get("current_speed").setText(location.getSpeed() + " km/h");
+        tv_uiInterface.get("current_speed").setText((long)location.getSpeed() + " km/h");
         tv_uiInterface.get("current_altitude").setText((long)location.getAltitude() + " m");
         tv_uiInterface.get("minimum_altitude").setText(MinAltitude + " m");
         tv_uiInterface.get("maximum_altitude").setText(MaxAltitude + " m");
