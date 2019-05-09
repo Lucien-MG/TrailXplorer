@@ -2,29 +2,33 @@
 
     <!-- Light application theme. -->
     <style name="LightAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundcolor">#FCFCFC</item>
-        <item name="cardbackground">#FFFFFF</item>
-        <item name="textcolor">#808080</item>
+        <item name="backgroundcolor">#E6F3FA</item>
+        <item name="cardbackground">#00BCD4</item>
+        <item name="titlecolor">#FCFCFC</item>
+        <item name="textcolor1">#008294</item>
+        <item name="textcolor2">#808080</item>
         <item name="tintcolor">#000000</item>
-        <item name="buttoncolor">#2196f3</item>
+        <item name="buttoncolor">#00BCD4</item>
+        <item name="colorControlActivated">#00BCD4</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
     <!-- Dark application theme. -->
     <style name="DarkAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">#212121</item>
         <item name="colorPrimaryDark">#000000</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundcolor">#303030</item>
-        <item name="cardbackground">#424242</item>
-        <item name="textcolor">#FFFFFF</item>
+        <item name="backgroundcolor">#00000A</item>
+        <item name="cardbackground">#BF000032</item>
+        <item name="titlecolor">#FCFCFC</item>
+        <item name="textcolor1">#5E35B1</item>
+        <item name="textcolor2">#FFFFFF</item>
         <item name="tintcolor">#FFFFFF</item>
-        <item name="buttoncolor">#2196F3</item>
+        <item name="buttoncolor">#270A5E</item>
+        <item name="colorControlActivated">#270A5E</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
@@ -37,7 +41,7 @@
     <!-- Light Alert Dialog. -->
     <style name="LightAlertDialog" parent="@style/Theme.AppCompat.DayNight.Dialog.Alert">
         <item name="android:textColor">#808080</item>
-        <item name="android:colorBackground">#FCFCFC</item>
+        <item name="android:colorBackground">#E6F3FA</item>
         <item name="android:textColorPrimary">#808080</item>
         <item name="android:textColorSecondary">#808080</item>
     </style>
@@ -45,7 +49,7 @@
     <!-- Dark Alert Dialog. -->
     <style name="DarkAlertDialog" parent="@style/Theme.AppCompat.DayNight.Dialog.Alert">
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:colorBackground">#303030</item>
+        <item name="android:colorBackground">#00000A</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
         <item name="android:textColorSecondary">#FFFFFF</item>
     </style>

@@ -15,7 +15,7 @@
         android:background="?attr/cardbackground"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleTextColor="?attr/textcolor"/>
+        app:titleTextColor="?attr/titlecolor"/>
 
     <!-- Option to disable or enable night mode. -->
     <LinearLayout
@@ -36,14 +36,15 @@
             android:textSize="24sp"
             android:layout_gravity="center"
             android:textStyle="bold"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor1"/>
 
         <Switch
             android:id="@+id/nightModeSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:checked="false"/>
+            android:checked="false"
+            android:theme="?attr/colorControlActivated"/>
 
     </LinearLayout>
 
@@ -66,13 +67,14 @@
             android:textSize="24sp"
             android:layout_gravity="center"
             android:textStyle="bold"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor1"/>
 
         <Switch
             android:id="@+id/ecoModeSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:theme="?attr/colorControlActivated"/>
 
     </LinearLayout>
 

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TrailXplorer</string>
 
+    <!-- Main Activity Strings. -->
     <string name="time_run">00:00:00</string>
     <string name="time_run2">Time ran</string>
     <string name="tot_dist">0 km</string>
@@ -14,17 +15,21 @@
     <string name="max_alt">0 m</string>
     <string name="max_alt2">Maximum Altitude</string>
 
+    <!-- Saved Run Activity Strings. -->
     <string name="ave_alt">0 m</string>
     <string name="ave_alt2">Average Altitude</string>
     <string name="ave_speed">0 km/h</string>
     <string name="ave_speed2">Average Speed</string>
 
+    <!-- Options Activity Strings. -->
     <string name="night_mode">Night Mode</string>
     <string name="eco_mode">Economy Mode</string>
 
+    <!-- Button Strings. -->
     <string name="start_btn">Start</string>
     <string name="pause_btn">Pause</string>
 
+    <!-- Popup Menu Strings. -->
     <string name="new_run">New Run</string>
     <string name="saved_run">Saved Run</string>
     <string name="options">Options</string>

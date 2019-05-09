@@ -14,7 +14,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/cardbackground"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:titleTextColor="?attr/textcolor"
+        app:titleTextColor="?attr/titlecolor"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <!-- Text View with the time ran. -->
@@ -27,7 +27,7 @@
         android:textSize="32sp"
         android:textStyle="bold"
         android:text="@string/time_run"
-        android:textColor="?attr/textcolor"/>
+        android:textColor="?attr/textcolor1"/>
 
     <!-- Text View with the time ran title. -->
     <TextView
@@ -36,7 +36,7 @@
         android:textAlignment="center"
         android:textSize="12sp"
         android:text="@string/time_run2"
-        android:textColor="?attr/textcolor"/>
+        android:textColor="?attr/textcolor2"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,7 +55,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:text="@string/tot_dist"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor1"/>
 
         <!-- Text View with the average speed. -->
         <TextView
@@ -67,7 +67,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:text="@string/cur_speed"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor1"/>
 
     </LinearLayout>
 
@@ -86,7 +86,7 @@
             android:textAlignment="center"
             android:textSize="12sp"
             android:text="@string/tot_dist2"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor2"/>
 
         <!-- Text View with the average speed title. -->
         <TextView
@@ -97,7 +97,7 @@
             android:textAlignment="center"
             android:textSize="12sp"
             android:text="@string/cur_speed2"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor2"/>
 
     </LinearLayout>
 
@@ -118,7 +118,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:text="@string/min_alt"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor1"/>
 
         <!-- Text View with the current altitude. -->
         <TextView
@@ -130,7 +130,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:text="@string/cur_alt"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor1"/>
 
         <!-- Text View with the maximum altitude. -->
         <TextView
@@ -142,7 +142,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:text="@string/max_alt"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor1"/>
 
     </LinearLayout>
 
@@ -161,7 +161,7 @@
             android:textAlignment="center"
             android:textSize="12sp"
             android:text="@string/min_alt2"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor2"/>
 
         <!-- Text View with the current altitude title. -->
         <TextView
@@ -172,7 +172,7 @@
             android:textAlignment="center"
             android:textSize="12sp"
             android:text="@string/cur_alt2"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor2"/>
 
         <!-- Text View with the maximum altitude title. -->
         <TextView
@@ -183,14 +183,13 @@
             android:textAlignment="center"
             android:textSize="12sp"
             android:text="@string/max_alt2"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor2"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
@@ -199,20 +198,28 @@
         <!-- Button to start running -->
         <Button
             android:id="@+id/startBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center_horizontal|bottom"
             android:text="@string/start_btn"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/titlecolor"
+            android:background="@drawable/btn_round"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"/>
 
         <!-- Button to pause the run. -->
         <Button
             android:id="@+id/pauseBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_gravity="center_horizontal|bottom"
             android:text="@string/pause_btn"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/titlecolor"
+            android:background="@drawable/btn_round"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
 

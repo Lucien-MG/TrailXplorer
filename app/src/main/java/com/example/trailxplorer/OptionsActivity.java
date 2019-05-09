@@ -41,6 +41,7 @@ public class OptionsActivity extends AppCompatActivity {
         ab.setHomeAsUpIndicator(android.R.drawable.ic_menu_sort_by_size);
         ab.setDisplayHomeAsUpEnabled(true);
 
+        //Setting the nightMode Switch and enabling it if necessary.
         nightMode = findViewById(R.id.nightModeSwitch);
         nightMode.setChecked(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
 

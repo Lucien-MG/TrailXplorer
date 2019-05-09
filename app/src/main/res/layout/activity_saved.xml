@@ -15,7 +15,7 @@
         android:background="?attr/cardbackground"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleTextColor="?attr/textcolor"/>
+        app:titleTextColor="?attr/titlecolor"/>
 
     <ListView
         android:id="@+id/listView"
