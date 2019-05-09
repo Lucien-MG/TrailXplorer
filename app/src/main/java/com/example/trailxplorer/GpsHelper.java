@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 // Java import:
+import java.util.ArrayList;
 import java.util.Map;
 
 public class GpsHelper {
@@ -32,10 +33,18 @@ public class GpsHelper {
     private Location la;
     private Location lb;
 
+    // Speed:
+    private long speed = 0;
+
     // Stats:
     private long TotalDistance;
     private long MinAltitude;
     private long MaxAltitude;
+
+    // Data:
+    public ArrayList<Long> dataSpeed;
+    public ArrayList<Location> dataLocation;
+    public int averageSpeed;
 
     // Contain message send by gps:
     private Toast toast;
@@ -54,6 +63,10 @@ public class GpsHelper {
 
         // Get interface:
         tv_uiInterface = uiInterface;
+
+        // Init data structure:
+        dataSpeed = new ArrayList<Long>();
+        dataLocation = new ArrayList<Location>();
     }
 
     // private method that will add a location listener to the location manager
@@ -83,7 +96,7 @@ public class GpsHelper {
             public void onLocationChanged(Location location) {
                 // the location of the device has changed so update the TextViews to reflect this.
                 updateAltitude(location);
-                updateDistance(location);
+                updateDistanceAndSpeed(location);
                 updateUI(location);
             }
 
@@ -158,27 +171,40 @@ public class GpsHelper {
     }
 
     public void stop() {
+        averageSpeed = 0;
+
+        for(long tmpSpeed: dataSpeed)
+            averageSpeed += tmpSpeed;
+
+        averageSpeed = averageSpeed / dataSpeed.size();
+
         lm.removeUpdates(ll);
         lm = null;
     }
 
     private void updateUI(Location location) {
-        tv_uiInterface.get("current_speed").setText((long)location.getSpeed() + " km/h");
+        tv_uiInterface.get("current_speed").setText(speed + " km/h");
         tv_uiInterface.get("current_altitude").setText((long)location.getAltitude() + " m");
         tv_uiInterface.get("minimum_altitude").setText(MinAltitude + " m");
         tv_uiInterface.get("maximum_altitude").setText(MaxAltitude + " m");
         tv_uiInterface.get("total_distance").setText(String.format("%.2f km", (float) TotalDistance / 1000));
     }
 
-    private void updateDistance(Location location) {
+    private void updateDistanceAndSpeed(Location location) {
         lb = new Location(LocationManager.NETWORK_PROVIDER);
         lb.setLatitude(location.getLatitude());
         lb.setLongitude(location.getLongitude());
 
-        if (la != null)
+        if (la != null) {
             TotalDistance += la.distanceTo(lb);
+            speed = (long)la.distanceTo(lb) / 5;
+        }
 
         la = lb;
+
+        // Update database:
+        dataSpeed.add(speed);
+        dataLocation.add(lb);
     }
 
     private void updateAltitude(Location location) {
