@@ -44,21 +44,20 @@ public class GpsHelper {
     public ArrayList<Long> dataSpeed;
     public ArrayList<Location> dataLocation;
     public int averageSpeed;
+    public int nbPoint = 0;
 
     // Contain message send by gps:
     private Toast toast;
 
     // Contain activity context:
     private Context ActivityContext;
-    private Activity A_Activity;
 
     // UI connection:
     private Map<String, TextView> tv_uiInterface;
 
-    public GpsHelper(Context context, Activity activity, Map<String, TextView> uiInterface) {
+    public GpsHelper(Context context, Map<String, TextView> uiInterface) {
         // Get application context:
         ActivityContext = context;
-        A_Activity = activity;
 
         // Get interface:
         tv_uiInterface = uiInterface;
@@ -99,7 +98,9 @@ public class GpsHelper {
                 // the location of the device has changed so update the TextViews to reflect this.
                 updateAltitude(location);
                 updateDistanceAndSpeed(location);
-                updateUI(location);
+                updateUI();
+
+                nbPoint += 1;
             }
 
             @Override
@@ -131,7 +132,7 @@ public class GpsHelper {
                     Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
                     if (location != null) {
-                        updateUI(location);
+                        updateUI();
                     }
                 }
 
@@ -148,7 +149,7 @@ public class GpsHelper {
                     Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
                     if (location != null) {
-                        updateUI(location);
+                        updateUI();
                     }
                 }
             }
@@ -180,7 +181,7 @@ public class GpsHelper {
         lm = null;
     }
 
-    private void updateUI(Location location) {
+    public void updateUI() {
         tv_uiInterface.get("current_speed").setText(speed + " km/h");
         tv_uiInterface.get("current_altitude").setText(CurAltitude + " m");
         tv_uiInterface.get("minimum_altitude").setText(MinAltitude + " m");

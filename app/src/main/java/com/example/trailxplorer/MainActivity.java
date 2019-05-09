@@ -1,6 +1,7 @@
 package com.example.trailxplorer;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     // All text view useful for GPS:
     Map<String, TextView> tv_uiInterface = new HashMap<String, TextView>();
+
+    // Context:
+    Context appContext;
 
     // Permission answer:
     private int RequestAnswer;
@@ -65,13 +70,14 @@ public class MainActivity extends AppCompatActivity {
 
         initUiInterface();
 
-        gps = new GpsHelper(this, MainActivity.this, tv_uiInterface);
+        gps = new GpsHelper(this, tv_uiInterface);
 
         gpx = new GpxHelper(MainActivity.this, this);
 
         timer = new TimerHelper((TextView) findViewById(R.id.timeRun));
 
         initMainButton();
+        appContext = this;
     }
 
     //Initializes the Toolbar.
@@ -144,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
                 if (b.getText().equals("Stop")) {
                     timer.stop();
                     gps.stop();
+                    String date = Calendar.getInstance().getTime().toString();
+                    gpx.saveDataInGpx(gps, date);
+                    gpx.loadGpx(appContext, tv_uiInterface, date);
                     b.setText("Start");
                 } else {
                     timer.start();
