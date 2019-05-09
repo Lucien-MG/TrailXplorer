@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SavedRunActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="?attr/backgroundcolor">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="?attr/cardbackground"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:titleTextColor="?attr/textcolor"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <!-- Text View with the time ran. -->
@@ -23,7 +26,8 @@
         android:layout_marginTop="20dp"
         android:textSize="32sp"
         android:textStyle="bold"
-        android:text="@string/time_run"/>
+        android:text="@string/time_run"
+        android:textColor="?attr/textcolor"/>
 
     <!-- Text View with the time ran title. -->
     <TextView
@@ -31,13 +35,15 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="12sp"
-        android:text="@string/time_run2"/>
+        android:text="@string/time_run2"
+        android:textColor="?attr/textcolor"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:background="?attr/backgroundcolor">
 
         <!-- Text View with the total distance ran. -->
         <TextView
@@ -48,25 +54,28 @@
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="@string/tot_dist"/>
+            android:text="@string/tot_dist"
+            android:textColor="?attr/textcolor"/>
 
         <!-- Text View with the average speed. -->
         <TextView
-            android:id="@+id/curSpeed"
+            android:id="@+id/aveSpeed"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="@string/cur_speed"/>
+            android:text="@string/ave_speed"
+            android:textColor="?attr/textcolor"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="?attr/backgroundcolor">
 
         <!-- Text View with the total distance ran title. -->
         <TextView
@@ -76,17 +85,19 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:textSize="12sp"
-            android:text="@string/tot_dist2"/>
+            android:text="@string/tot_dist2"
+            android:textColor="?attr/textcolor"/>
 
         <!-- Text View with the average speed title. -->
         <TextView
-            android:id="@+id/curSpeed2"
+            android:id="@+id/aveSpeed2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
             android:textSize="12sp"
-            android:text="@string/cur_speed2"/>
+            android:text="@string/ave_speed2"
+            android:textColor="?attr/textcolor"/>
 
     </LinearLayout>
 
@@ -94,7 +105,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:background="?attr/backgroundcolor">
 
         <!-- Text View with the minimum altitude. -->
         <TextView
@@ -105,18 +117,20 @@
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="@string/min_alt"/>
+            android:text="@string/min_alt"
+            android:textColor="?attr/textcolor"/>
 
         <!-- Text View with the current altitude. -->
         <TextView
-            android:id="@+id/curAlt"
+            android:id="@+id/aveAlt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="@string/ave_alt"/>
+            android:text="@string/ave_alt"
+            android:textColor="?attr/textcolor"/>
 
         <!-- Text View with the maximum altitude. -->
         <TextView
@@ -127,14 +141,16 @@
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="@string/max_alt"/>
+            android:text="@string/max_alt"
+            android:textColor="?attr/textcolor"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="?attr/backgroundcolor">
 
         <!-- Text View with the minimum altitude title. -->
         <TextView
@@ -144,17 +160,19 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:textSize="12sp"
-            android:text="@string/min_alt2"/>
+            android:text="@string/min_alt2"
+            android:textColor="?attr/textcolor"/>
 
         <!-- Text View with the current altitude title. -->
         <TextView
-            android:id="@+id/curAlt2"
+            android:id="@+id/aveAlt2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
             android:textSize="12sp"
-            android:text="@string/ave_alt2"/>
+            android:text="@string/ave_alt2"
+            android:textColor="?attr/textcolor"/>
 
         <!-- Text View with the maximum altitude title. -->
         <TextView
@@ -164,7 +182,8 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:textSize="12sp"
-            android:text="@string/max_alt2"/>
+            android:text="@string/max_alt2"
+            android:textColor="?attr/textcolor"/>
 
     </LinearLayout>
 
@@ -174,9 +193,10 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:background="?attr/backgroundcolor">
 
-        <com.example.trailxplorer.GraphView
+    <com.example.trailxplorer.GraphView
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

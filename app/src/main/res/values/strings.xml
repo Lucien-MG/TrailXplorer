@@ -6,7 +6,7 @@
     <string name="tot_dist">0 km</string>
     <string name="tot_dist2">Distance ran</string>
     <string name="cur_speed">0 km/h</string>
-    <string name="cur_speed2">Average speed</string>
+    <string name="cur_speed2">Current Speed</string>
     <string name="min_alt">0 m</string>
     <string name="min_alt2">Minimum Altitude</string>
     <string name="cur_alt">0 m</string>
@@ -16,6 +16,8 @@
 
     <string name="ave_alt">0 m</string>
     <string name="ave_alt2">Average Altitude</string>
+    <string name="ave_speed">0 km/h</string>
+    <string name="ave_speed2">Average Speed</string>
 
     <string name="night_mode">Night Mode</string>
     <string name="eco_mode">Economy Mode</string>

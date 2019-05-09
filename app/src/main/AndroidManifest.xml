@@ -33,9 +33,9 @@
             android:name=".OptionsActivity"
             android:screenOrientation="portrait" />
         <activity
-        android:name=".SavedRunActivity"
-        android:parentActivityName=".SavedActivity"
-            android:screenOrientation="portrait" >
+            android:name=".SavedRunActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".SavedActivity">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value="com.example.trailxplorer.SavedActivity" />

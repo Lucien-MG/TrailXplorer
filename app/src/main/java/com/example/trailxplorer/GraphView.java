@@ -12,6 +12,8 @@ public class GraphView extends View {
 
     private Paint paint;
 
+    private static boolean night;
+
     private int[] speeds = new int[]{0, 5, 7, 6, 3, 4, 7};
 
     public GraphView(Context context) {
@@ -30,13 +32,23 @@ public class GraphView extends View {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-        //Set the background color.
-        setBackgroundColor(Color.WHITE);
-
         //Paint instance for drawing the lines.
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.BLACK);
         paint.setStrokeWidth(5f);
+
+        //Setting the style depending on the activation of the night mode.
+        if (night) {
+            setBackgroundColor(0xFF303030);
+            paint.setColor(0xFFFFFFFF);
+        }
+        else {
+            setBackgroundColor(0xFFFFFFFF);
+            paint.setColor(0xFF808080);
+        }
+    }
+
+    public static void setNight(boolean test) {
+        night = test;
     }
 
     @Override
