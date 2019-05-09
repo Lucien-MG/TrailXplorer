@@ -33,11 +33,10 @@ public class GpsHelper {
     private Location la;
     private Location lb;
 
-    // Speed:
-    private long speed = 0;
-
     // Stats:
+    private long speed = 0;
     private long TotalDistance;
+    private long CurAltitude;
     private long MinAltitude;
     private long MaxAltitude;
 
@@ -63,6 +62,9 @@ public class GpsHelper {
 
         // Get interface:
         tv_uiInterface = uiInterface;
+
+        // Min altitude init:
+        MinAltitude = Long.MAX_VALUE;
 
         // Init data structure:
         dataSpeed = new ArrayList<Long>();
@@ -158,10 +160,6 @@ public class GpsHelper {
         };
 
         lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, ll);
-
-        // First variable initialisation:
-        Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        MinAltitude = (long) location.getAltitude();
     }
 
     public void start() {
@@ -184,7 +182,7 @@ public class GpsHelper {
 
     private void updateUI(Location location) {
         tv_uiInterface.get("current_speed").setText(speed + " km/h");
-        tv_uiInterface.get("current_altitude").setText((long)location.getAltitude() + " m");
+        tv_uiInterface.get("current_altitude").setText(CurAltitude + " m");
         tv_uiInterface.get("minimum_altitude").setText(MinAltitude + " m");
         tv_uiInterface.get("maximum_altitude").setText(MaxAltitude + " m");
         tv_uiInterface.get("total_distance").setText(String.format("%.2f km", (float) TotalDistance / 1000));
@@ -208,6 +206,8 @@ public class GpsHelper {
     }
 
     private void updateAltitude(Location location) {
+        CurAltitude = (long)location.getAltitude();
+
         if (location.getAltitude() < MinAltitude)
             MinAltitude = (long) location.getAltitude();
 
