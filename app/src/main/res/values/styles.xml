@@ -34,4 +34,20 @@
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
+    <!-- Light Alert Dialog. -->
+    <style name="LightAlertDialog" parent="@style/Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:textColor">#808080</item>
+        <item name="android:colorBackground">#FCFCFC</item>
+        <item name="android:textColorPrimary">#808080</item>
+        <item name="android:textColorSecondary">#808080</item>
+    </style>
+
+    <!-- Dark Alert Dialog. -->
+    <style name="DarkAlertDialog" parent="@style/Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:colorBackground">#303030</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:textColorSecondary">#FFFFFF</item>
+    </style>
+
 </resources>
