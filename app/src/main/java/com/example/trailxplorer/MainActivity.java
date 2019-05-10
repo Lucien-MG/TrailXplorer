@@ -68,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
         initUiInterface();
 
-        gps = new GpsHelper(this, tv_uiInterface);
-
         gpx = new GpxHelper(MainActivity.this, this);
 
         timer = new TimerHelper((TextView) findViewById(R.id.timeRun));
@@ -148,10 +146,12 @@ public class MainActivity extends AppCompatActivity {
                 if (b.getText().equals("Stop")) {
                     timer.stop();
                     gps.stop();
-                    String date = Calendar.getInstance().getTime().toString();
-                    gpx.saveDataInGpx(gps, date);
+                    gpx.saveDataInGpx(gps, gps.name);
+                    gps.saveInDataBase();
                     b.setText("Start");
+                    gps = null;
                 } else {
+                    gps = new GpsHelper(appContext, tv_uiInterface, Calendar.getInstance().getTime().toString());
                     timer.start();
                     gps.start();
                     b.setText("Stop");

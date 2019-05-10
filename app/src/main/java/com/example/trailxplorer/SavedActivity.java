@@ -2,6 +2,8 @@ package com.example.trailxplorer;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -27,7 +29,6 @@ public class SavedActivity extends AppCompatActivity {
 
     private ListView savedList;
     private SimpleAdapter adapter;
-    private HashMap<String, String> item;
     private List<HashMap<String, String>> list;
 
     @Override
@@ -114,15 +115,10 @@ public class SavedActivity extends AppCompatActivity {
 
     //Initializes the listView.
     protected void initList() {
-        //Initializing the HashMap and the list.
-        item = new HashMap<>();
+        //Initializing the list.
         list = new ArrayList<>();
 
-        //Filling the Hashmap and the list.
-        item.put("title", "Test1");
-        item.put("time", "Time: 00:00:00");
-        item.put("distance", "Distance: 0 km");
-        list.add(item);
+        fillHashMap();
 
         //Initializing the list view.
         savedList = findViewById(R.id.listView);
@@ -184,5 +180,41 @@ public class SavedActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void fillHashMap() {
+        SqlHelper dataBase = new SqlHelper(this, "GPSdataBase", null, 1);
+        SQLiteDatabase sdb = dataBase.getWritableDatabase();
+
+        // name of the table to query
+        String table_name = "GPSdataBase";
+        // the columns that we wish to retrieve from the tables
+        String[] columns = {"ID", "AVE_SPEED", "TT_DISTANCE", "MIN_ALT", "MAX_ALT", "AVE_ALT", "NAME", "TIME"};
+        // where clause of the query. DO NOT WRITE WHERE IN THIS
+        String where = null;
+        // arguments to provide to the where clauseString
+        String where_args[] = null;
+        // group by clause of the query. DO NOT WRITE GROUP BY IN THIS
+        String group_by = null;
+        // having clause of the query. DO NOT WRITE HAVING IN THIS
+        String having = null;
+        // order by clause of the query. DO NOT WRITE ORDER BY IN THIS
+        String order_by = null;
+
+        Cursor c = sdb.query(table_name, columns, where, where_args, group_by, having, order_by);
+        c.moveToFirst();
+
+        for(int i = 0; i < c.getCount(); i++) {
+
+            HashMap<String, String> item = new HashMap<>();
+            //Filling the Hashmap and the list.
+            item.put("title", c.getString(6).substring(0,19));
+            item.put("time", "Time: " + c.getString(7));
+            item.put("distance", "Distance: " + c.getInt(2));
+            item.put("id", "" + c.getLong(0));
+            list.add(item);
+
+            c.moveToNext();
+        }
     }
 }

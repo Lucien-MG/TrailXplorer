@@ -28,6 +28,9 @@ import java.util.Calendar;
 import java.util.Map;
 
 public class GpsHelper {
+    // Name:
+    public String name;
+
     // Location provider:
     private String locationProvider;
 
@@ -60,7 +63,9 @@ public class GpsHelper {
     // UI connection:
     private Map<String, TextView> tv_uiInterface;
 
-    public GpsHelper(Context context, Map<String, TextView> uiInterface) {
+    public GpsHelper(Context context, Map<String, TextView> uiInterface, String name) {
+        this.name = name;
+
         // Affect Location provider:
         locationProvider = LocationManager.NETWORK_PROVIDER;
 
@@ -76,6 +81,7 @@ public class GpsHelper {
         // Init data structure:
         dataSpeed = new ArrayList<Long>();
         dataAltitude = new ArrayList<Long>();
+        dataDate = new ArrayList<String>();
         dataLocation = new ArrayList<Location>();
     }
 
@@ -229,6 +235,7 @@ public class GpsHelper {
         cv.put("MIN_ALT", MinAltitude);
         cv.put("MAX_ALT", MaxAltitude);
         cv.put("AVE_ALT", averageAltitude);
+        cv.put("NAME", name);
         cv.put("TIME", "00:00:00");
 
         return sdb.insert("GPSdataBase", null, cv);
@@ -239,9 +246,9 @@ public class GpsHelper {
         SQLiteDatabase sdb = dataBase.getWritableDatabase();
 
         // name of the table to query
-        String table_name = "test";
+        String table_name = "GPSdataBase";
         // the columns that we wish to retrieve from the tables
-        String[] columns = {"ID", "AVE_SPEED", "TT_DISTANCE", "MIN_ALT", "MAX_ALT", "AVE_ALT", "TIME"};
+        String[] columns = {"ID", "AVE_SPEED", "TT_DISTANCE", "MIN_ALT", "MAX_ALT", "AVE_ALT", "NAME", "TIME"};
         // where clause of the query. DO NOT WRITE WHERE IN THIS
         String where = null;
         // arguments to provide to the where clauseString
@@ -262,6 +269,7 @@ public class GpsHelper {
                 this.MinAltitude = c.getInt(3);
                 this.MaxAltitude = c.getInt(4);
                 this.averageAltitude = c.getInt(5);
+                this.name = c.getString(6);
                 break;
             }
             c.moveToNext();
