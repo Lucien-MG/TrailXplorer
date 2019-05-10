@@ -49,6 +49,7 @@ public class GpsHelper {
     public int averageSpeed = 0;
     public int averageAltitude = 0;
     public int nbPoint = 0;
+    public String time = "00:00:00";
     public ArrayList<Long> dataSpeed;
     public ArrayList<Long> dataAltitude;
     public ArrayList<String> dataDate;

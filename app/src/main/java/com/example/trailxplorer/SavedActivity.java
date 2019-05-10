@@ -132,6 +132,9 @@ public class SavedActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(SavedActivity.this, SavedRunActivity.class);
 
+                // Pass gps.
+                intent.putExtra("id", list.get(position).get("id"));
+
                 startActivity(intent);
             }
         });
