@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundcolor">#E6F3FA</item>
+        <item name="backgroundcolor">#FFFFFF</item>
         <item name="cardbackground">#00BCD4</item>
         <item name="titlecolor">#FCFCFC</item>
         <item name="textcolor1">#008294</item>
