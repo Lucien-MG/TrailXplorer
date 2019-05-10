@@ -4,10 +4,13 @@ import android.Manifest;
 import android.app.Activity;
 
 // Content import:
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
 // Location import:
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -21,11 +24,12 @@ import android.widget.Toast;
 
 // Java import:
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Map;
 
 public class GpsHelper {
-    // private fields of the class
-    private TextView tv_lat, tv_long;
+    // Location provider:
+    private String locationProvider;
 
     // Location:
     private LocationManager lm;
@@ -33,18 +37,19 @@ public class GpsHelper {
     private Location la;
     private Location lb;
 
-    // Stats:
-    private long speed = 0;
-    private long TotalDistance;
-    private long CurAltitude;
-    private long MinAltitude;
-    private long MaxAltitude;
-
-    // Data:
-    public ArrayList<Long> dataSpeed;
-    public ArrayList<Location> dataLocation;
-    public int averageSpeed;
+    // Stats and data:
+    public long speed = 0;
+    public long TotalDistance = 0;
+    public long CurAltitude;
+    public long MinAltitude;
+    public long MaxAltitude;
+    public int averageSpeed = 0;
+    public int averageAltitude = 0;
     public int nbPoint = 0;
+    public ArrayList<Long> dataSpeed;
+    public ArrayList<Long> dataAltitude;
+    public ArrayList<String> dataDate;
+    public ArrayList<Location> dataLocation;
 
     // Contain message send by gps:
     private Toast toast;
@@ -56,6 +61,9 @@ public class GpsHelper {
     private Map<String, TextView> tv_uiInterface;
 
     public GpsHelper(Context context, Map<String, TextView> uiInterface) {
+        // Affect Location provider:
+        locationProvider = LocationManager.NETWORK_PROVIDER;
+
         // Get application context:
         ActivityContext = context;
 
@@ -67,6 +75,7 @@ public class GpsHelper {
 
         // Init data structure:
         dataSpeed = new ArrayList<Long>();
+        dataAltitude = new ArrayList<Long>();
         dataLocation = new ArrayList<Location>();
     }
 
@@ -81,13 +90,8 @@ public class GpsHelper {
             return;
         }
 
-        if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            toast = Toast.makeText(ActivityContext, "WARNING: GPS Disable", Toast.LENGTH_LONG);
-            toast.show();
-        }
-
-        if (!lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            toast = Toast.makeText(ActivityContext, "WARNING: NETWORK Location Disable", Toast.LENGTH_LONG);
+        if (!lm.isProviderEnabled(locationProvider)) {
+            toast = Toast.makeText(ActivityContext, "WARNING: Location Disable", Toast.LENGTH_LONG);
             toast.show();
         }
 
@@ -100,26 +104,24 @@ public class GpsHelper {
                 updateDistanceAndSpeed(location);
                 updateUI();
 
+                dataDate.add(Calendar.getInstance().getTime().toString());
+
                 nbPoint += 1;
             }
 
             @Override
             public void onProviderDisabled(String provider) {
                 // if GPS has been disabled then update the TextViews to reflect
-                if (provider == LocationManager.GPS_PROVIDER) {
+                if (provider == locationProvider) {
                     //tv_lat.setText("Latitude");
                     //tv_long.setText("Longitude");
-                }
-
-                if (provider == LocationManager.NETWORK_PROVIDER) {
-
                 }
             }
 
             @Override
             public void onProviderEnabled(String provider) {
                 // if there is a last known location then set it on the Text View:
-                if (provider == LocationManager.GPS_PROVIDER) {
+                if (provider == locationProvider) {
                     if (ActivityCompat.checkSelfPermission(ActivityContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                             ActivityCompat.checkSelfPermission(ActivityContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -129,28 +131,10 @@ public class GpsHelper {
                         return;
                     }
 
-                    Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    Location location = lm.getLastKnownLocation(locationProvider);
 
-                    if (location != null) {
+                    if (location != null)
                         updateUI();
-                    }
-                }
-
-                if (provider == LocationManager.NETWORK_PROVIDER) {
-                    if (ActivityCompat.checkSelfPermission(ActivityContext, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED &&
-                            ActivityCompat.checkSelfPermission(ActivityContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                        toast = Toast.makeText(ActivityContext, "The application has not the permission to use Location.", Toast.LENGTH_LONG);
-                        toast.show();
-
-                        return;
-                    }
-
-                    Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-                    if (location != null) {
-                        updateUI();
-                    }
                 }
             }
 
@@ -160,7 +144,7 @@ public class GpsHelper {
             }
         };
 
-        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, ll);
+        lm.requestLocationUpdates(locationProvider, 5000, 0, ll);
     }
 
     public void start() {
@@ -169,13 +153,29 @@ public class GpsHelper {
         this.addLocationListener();
     }
 
-    public void stop() {
-        averageSpeed = 0;
+    public void pause() {
+        lm.removeUpdates(ll);
+    }
 
+    public void startAgain() {
+    }
+
+    public void stop() {
+        // Calculate average speed:
+        averageSpeed = 0;
         for(long tmpSpeed: dataSpeed)
             averageSpeed += tmpSpeed;
 
-        averageSpeed = averageSpeed / dataSpeed.size();
+        if (dataSpeed.size() != 0)
+            averageSpeed = averageSpeed / dataSpeed.size();
+
+        // Calculate average speed:
+        averageAltitude = 0;
+        for(long tmpSpeed: dataAltitude)
+            averageAltitude += tmpSpeed;
+
+        if (dataAltitude.size() != 0)
+            averageAltitude = averageAltitude / dataAltitude.size();
 
         lm.removeUpdates(ll);
         lm = null;
@@ -190,7 +190,7 @@ public class GpsHelper {
     }
 
     private void updateDistanceAndSpeed(Location location) {
-        lb = new Location(LocationManager.NETWORK_PROVIDER);
+        lb = new Location(locationProvider);
         lb.setLatitude(location.getLatitude());
         lb.setLongitude(location.getLongitude());
 
@@ -214,5 +214,57 @@ public class GpsHelper {
 
         if (location.getAltitude() > MaxAltitude)
             MaxAltitude = (long) location.getAltitude();
+
+        dataAltitude.add(CurAltitude);
+    }
+
+    public long saveInDataBase() {
+        SqlHelper dataBase = new SqlHelper(ActivityContext, "GPSdataBase", null, 1);
+        SQLiteDatabase sdb = dataBase.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+
+        cv.put("AVE_SPEED", averageSpeed);
+        cv.put("TT_DISTANCE", TotalDistance);
+        cv.put("MIN_ALT", MinAltitude);
+        cv.put("MAX_ALT", MaxAltitude);
+        cv.put("AVE_ALT", averageAltitude);
+        cv.put("TIME", "00:00:00");
+
+        return sdb.insert("GPSdataBase", null, cv);
+    }
+
+    public void loadInDataBase(long id) {
+        SqlHelper dataBase = new SqlHelper(ActivityContext, "GPSdataBase", null, 1);
+        SQLiteDatabase sdb = dataBase.getWritableDatabase();
+
+        // name of the table to query
+        String table_name = "test";
+        // the columns that we wish to retrieve from the tables
+        String[] columns = {"ID", "AVE_SPEED", "TT_DISTANCE", "MIN_ALT", "MAX_ALT", "AVE_ALT", "TIME"};
+        // where clause of the query. DO NOT WRITE WHERE IN THIS
+        String where = null;
+        // arguments to provide to the where clauseString
+        String where_args[] = null;
+        // group by clause of the query. DO NOT WRITE GROUP BY IN THIS
+        String group_by = null;
+        // having clause of the query. DO NOT WRITE HAVING IN THIS
+        String having = null;
+        // order by clause of the query. DO NOT WRITE ORDER BY IN THIS
+        String order_by = null;
+
+        Cursor c = sdb.query(table_name, columns, where, where_args, group_by, having, order_by);
+        c.moveToFirst();
+        for(int i = 0; i < c.getCount(); i++) {
+            if (c.getLong(0) == id) {
+                this.averageAltitude = c.getInt(1);
+                this.TotalDistance = c.getInt(2);
+                this.MinAltitude = c.getInt(3);
+                this.MaxAltitude = c.getInt(4);
+                this.averageAltitude = c.getInt(5);
+                break;
+            }
+            c.moveToNext();
+        }
     }
 }

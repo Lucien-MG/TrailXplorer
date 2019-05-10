@@ -1,10 +1,8 @@
 package com.example.trailxplorer;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +15,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
@@ -58,14 +55,16 @@ public class GpxHelper {
 
         strGpx += "<trkseg>\n";
 
-            for(int i=0; i < gps.nbPoint; i++) {
-                strGpx += "<trkpt" + " lat=\"" + gps.dataLocation.get(i).getLatitude()
+        for(int i=0; i < gps.nbPoint; i++) {
+            strGpx += "<trkpt" + " lat=\"" + gps.dataLocation.get(i).getLatitude()
                           + "\" lon=\"" + gps.dataLocation.get(i).getLongitude() + "\">\n";
 
-                strGpx += "<ele>" + gps.dataSpeed.get(i) + "</ele>\n";
+            strGpx += "<ele>" + gps.dataAltitude.get(i) + "</ele>\n";
 
-                strGpx += "</trkpt>\n";
-            }
+            strGpx += "<time>" + gps.dataDate.get(i) + "</time>\n";
+
+            strGpx += "</trkpt>\n";
+        }
 
         strGpx += "</trkseg>\n";
 
@@ -99,7 +98,7 @@ public class GpxHelper {
         writeToFile(gpxSave, path);
     }
 
-    private String getWord(String s, int index) {
+    /*private String getWord(String s, int index) {
         String word = new String();
         while (index < s.length() && (s.charAt(index) == ' ' && s.charAt(index) == '\n'))
             index += 1;
@@ -138,6 +137,9 @@ public class GpxHelper {
 
             case "ele":
                 gps.dataSpeed.add(getNumber(token, 4));
+                break;
+
+            default:
                 break;
         }
     }
@@ -194,7 +196,7 @@ public class GpxHelper {
         }
 
         return content;
-    }
+    }*/
 
     private File getPublicStorageDir() {
         // Get the directory from the user's public directory.

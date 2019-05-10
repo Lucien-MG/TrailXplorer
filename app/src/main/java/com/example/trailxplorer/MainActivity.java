@@ -47,12 +47,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Setting the style depending on the activation of the night mode.
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
             setTheme(R.style.DarkAppTheme);
-        }
-        else {
+        else
             setTheme(R.style.LightAppTheme);
-        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -152,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
                     gps.stop();
                     String date = Calendar.getInstance().getTime().toString();
                     gpx.saveDataInGpx(gps, date);
-                    gpx.loadGpx(appContext, tv_uiInterface, date);
                     b.setText("Start");
                 } else {
                     timer.start();

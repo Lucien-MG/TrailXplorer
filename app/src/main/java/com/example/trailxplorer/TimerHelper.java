@@ -1,15 +1,10 @@
 package com.example.trailxplorer;
 
 import android.os.Handler;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class TimerHelper {
     TextView counterView;
-    Button startButton;
-    Button stopButton;
-    Button pauseButton;
 
     long startTime = 0;
 
@@ -32,9 +27,6 @@ public class TimerHelper {
 
     public TimerHelper(TextView viewer) {
         counterView = viewer;
-        //startButton = start;
-        //pauseButton = pause;
-
     }
 
     public void start() {
@@ -45,5 +37,4 @@ public class TimerHelper {
     public void stop() {
         timerHandler.removeCallbacks(timerRunnable);
     }
-
 }
