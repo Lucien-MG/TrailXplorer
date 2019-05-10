@@ -8,7 +8,6 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-
 public class GraphView extends View {
 
     private Paint paint;
@@ -86,15 +85,17 @@ public class GraphView extends View {
         int nbpoints = speeds.size();
 
         //Defining the axis units.
-        int xunit = xaxis / nbpoints;
-        int yunit = yaxis / 10;
+        if (nbpoints > 0) {
+            int xunit = xaxis / nbpoints;
+            int yunit = yaxis / 10;
 
-        for (int i = 0; i < nbpoints; i++) {
-            canvas.drawLine(i * xunit + 125, (10 - speeds.get(i)) * yunit + 100, i * xunit + 175, (10 - speeds.get(i)) * yunit + 100, paint);
-            canvas.drawLine(i * xunit + 150, (10 - speeds.get(i)) * yunit + 75, i * xunit + 150, (10 - speeds.get(i)) * yunit + 125, paint);
+            for (int i = 0; i < nbpoints; i++) {
+                canvas.drawLine(i * xunit + 125, (10 - speeds.get(i)) * yunit + 100, i * xunit + 175, (10 - speeds.get(i)) * yunit + 100, paint);
+                canvas.drawLine(i * xunit + 150, (10 - speeds.get(i)) * yunit + 75, i * xunit + 150, (10 - speeds.get(i)) * yunit + 125, paint);
 
-            if (i > 0) {
-                canvas.drawLine((i - 1) * xunit + 150, (10 - speeds.get(i - 1)) * yunit + 100, i * xunit + 150, (10 - speeds.get(i)) * yunit + 100, paint);
+                if (i > 0) {
+                    canvas.drawLine((i - 1) * xunit + 150, (10 - speeds.get(i - 1)) * yunit + 100, i * xunit + 150, (10 - speeds.get(i)) * yunit + 100, paint);
+                }
             }
         }
     }
