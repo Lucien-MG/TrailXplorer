@@ -25,6 +25,16 @@ public class TimerHelper {
         }
     };
 
+    public String getTime() {
+        long millis = System.currentTimeMillis() - startTime;
+        int seconds = (int) (millis / 1000);
+        int minutes = seconds / 60;
+        int hours = minutes / 60;
+        seconds = seconds % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
     public TimerHelper(TextView viewer) {
         counterView = viewer;
     }

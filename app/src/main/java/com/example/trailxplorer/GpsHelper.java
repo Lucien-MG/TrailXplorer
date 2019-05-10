@@ -235,7 +235,7 @@ public class GpsHelper {
         dataAltitude.add(CurAltitude);
     }
 
-    public long saveInDataBase() {
+    public long saveInDataBase(String timeRan) {
         SqlHelper dataBase = new SqlHelper(ActivityContext, "GPSdataBase", null, 1);
         SQLiteDatabase sdb = dataBase.getWritableDatabase();
 
@@ -247,7 +247,7 @@ public class GpsHelper {
         cv.put("MAX_ALT", MaxAltitude);
         cv.put("AVE_ALT", averageAltitude);
         cv.put("NAME", name);
-        cv.put("TIME", "00:00:00");
+        cv.put("TIME", timeRan);
 
         return sdb.insert("GPSdataBase", null, cv);
     }

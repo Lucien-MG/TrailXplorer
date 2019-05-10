@@ -145,11 +145,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Button b = (Button) v;
                 if (b.getText().equals("Stop")) {
-                    timer.stop();
                     gps.stop();
                     gpx.saveDataInGpx(gps, gps.name);
-                    b.setText("Start");
+                    gps.saveInDataBase(timer.getTime());
+                    timer.stop();
                     gps = null;
+                    b.setText("Start");
                 } else {
                     gps = new GpsHelper(appContext, tv_uiInterface, Calendar.getInstance().getTime().toString());
                     timer.start();

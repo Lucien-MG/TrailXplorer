@@ -85,7 +85,7 @@ public class SavedRunActivity extends AppCompatActivity {
         int pos = 0;
 
         while (pos < id.length()) {
-            longID += longID * 10 + (id.charAt(pos)-48);
+            longID = longID * 10 + (id.charAt(pos)-48);
             pos += 1;
         }
 
