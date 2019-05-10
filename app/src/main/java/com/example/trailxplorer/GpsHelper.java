@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 
 // Widget import:
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -188,6 +189,15 @@ public class GpsHelper {
         lm = null;
     }
 
+    public void printFromSave() {
+        tv_uiInterface.get("timerun").setText(this.time);
+        tv_uiInterface.get("totDist").setText(this.TotalDistance + " km" + " m");
+        tv_uiInterface.get("aveSpeed").setText(this.speed + " km/h");
+        tv_uiInterface.get("minAlt").setText(this.MinAltitude + " m");
+        tv_uiInterface.get("maxAlt").setText(this.averageAltitude + " m");
+        tv_uiInterface.get("aveAlt").setText(this.MaxAltitude + " m");
+    }
+
     public void updateUI() {
         tv_uiInterface.get("current_speed").setText(speed + " km/h");
         tv_uiInterface.get("current_altitude").setText(CurAltitude + " m");
@@ -242,7 +252,9 @@ public class GpsHelper {
         return sdb.insert("GPSdataBase", null, cv);
     }
 
-    public void loadInDataBase(long id) {
+    public void loadFromDataBase(long id) {
+        Log.e("test", "loadFromDataBase: " + id);
+
         SqlHelper dataBase = new SqlHelper(ActivityContext, "GPSdataBase", null, 1);
         SQLiteDatabase sdb = dataBase.getWritableDatabase();
 
@@ -265,6 +277,7 @@ public class GpsHelper {
         c.moveToFirst();
         for(int i = 0; i < c.getCount(); i++) {
             if (c.getLong(0) == id) {
+                Log.e("test", "Found");
                 this.averageAltitude = c.getInt(1);
                 this.TotalDistance = c.getInt(2);
                 this.MinAltitude = c.getInt(3);
@@ -273,6 +286,7 @@ public class GpsHelper {
                 this.name = c.getString(6);
                 break;
             }
+            Log.e("test", "Move");
             c.moveToNext();
         }
     }

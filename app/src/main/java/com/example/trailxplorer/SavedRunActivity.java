@@ -6,14 +6,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SavedRunActivity extends AppCompatActivity {
 
     private long id;
     private GpsHelper gps;
+
+    Map<String, TextView> tv_uiInterface = new HashMap<String, TextView>();
 
     private TextView timerun;
     private TextView totDist;
@@ -46,27 +52,16 @@ public class SavedRunActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         //Get the id of the run.
-        id = getIntent().getLongExtra("id", 0);
+        id = convertID(getIntent().getStringExtra("id"));
 
         //Load the gps object from the database.
-        gps = new GpsHelper(this, )
-        gps.loadInDataBase(id);
+        initUiInterface();
 
-        //Initializing the textViews.
-        timerun = findViewById(R.id.timeRun);
-        totDist = findViewById(R.id.totDist);
-        aveSpeed = findViewById(R.id.aveSpeed);
-        minAlt = findViewById(R.id.minAlt);
-        aveAlt = findViewById(R.id.aveAlt);
-        maxAlt = findViewById(R.id.maxAlt);
+        gps = new GpsHelper(this, tv_uiInterface, "");
+        gps.loadFromDataBase(id);
 
         //Filling the textViews.
-        timerun.setText(gps.time);
-        totDist.setText(gps.TotalDistance + " km");
-        aveSpeed.setText(gps.speed + " km/h");
-        minAlt.setText(gps.MinAltitude + " m");
-        aveAlt.setText(gps.averageAltitude + " m");
-        maxAlt.setText(gps.MaxAltitude + " m");
+        gps.printFromSave();
     }
 
     @Override
@@ -74,5 +69,26 @@ public class SavedRunActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
+    }
+
+    private void initUiInterface() {
+        tv_uiInterface.put("timerun", (TextView) findViewById(R.id.timeRun));
+        tv_uiInterface.put("totDist", (TextView) findViewById(R.id.totDist));
+        tv_uiInterface.put("aveSpeed", (TextView) findViewById(R.id.aveSpeed));
+        tv_uiInterface.put("minAlt", (TextView) findViewById(R.id.minAlt));
+        tv_uiInterface.put("maxAlt", (TextView) findViewById(R.id.maxAlt));
+        tv_uiInterface.put("aveAlt", (TextView) findViewById(R.id.aveAlt));
+    }
+
+    private long convertID(String id) {
+        long longID = 0;
+        int pos = 0;
+
+        while (pos < id.length()) {
+            longID += longID * 10 + (id.charAt(pos)-48);
+            pos += 1;
+        }
+
+        return longID;
     }
 }
