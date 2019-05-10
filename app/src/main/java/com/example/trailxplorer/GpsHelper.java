@@ -286,6 +286,7 @@ public class GpsHelper {
                 this.averageAltitude = c.getInt(5);
                 this.time = c.getString(7);
                 this.name = c.getString(6);
+                Log.e("test", "loadFromDataBase: " + fromStringToArrayListLong(c.getString(8)).toString());
                 this.dataSpeed = fromStringToArrayListLong(c.getString(8));
                 break;
             }
@@ -301,13 +302,14 @@ public class GpsHelper {
         int pos = 0;
         long longID = 0;
 
-        while (s.charAt(pos) != ']') {
+        while (pos < s.length() && s.charAt(pos) != ']') {
             pos += 1;
             longID = 0;
-            while (s.charAt(pos) < 58 && s.charAt(pos) > 47) {
+            while (pos < s.length() && s.charAt(pos) < 58 && s.charAt(pos) > 47) {
                 longID = longID * 10 + (s.charAt(pos)-48);
                 pos += 1;
             }
+            arr.add(longID);
         }
 
         return arr;
