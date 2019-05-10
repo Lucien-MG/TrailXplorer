@@ -62,6 +62,9 @@ public class SavedRunActivity extends AppCompatActivity {
 
         //Filling the textViews.
         gps.printFromSave();
+
+        //Setting the point list for the graph.
+        GraphView.setList(gps.dataSpeed);
     }
 
     @Override

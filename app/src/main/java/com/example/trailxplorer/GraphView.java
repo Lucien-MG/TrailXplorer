@@ -6,6 +6,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.ArrayList;
+
 
 public class GraphView extends View {
 
@@ -13,7 +15,7 @@ public class GraphView extends View {
 
     private static boolean night;
 
-    private int[] speeds = new int[]{0, 5, 7, 6, 3, 4, 7};
+    private static ArrayList<Long> speeds = new ArrayList<Long>();
 
     public GraphView(Context context) {
         super(context);
@@ -46,8 +48,14 @@ public class GraphView extends View {
         }
     }
 
+    //Setter for the night boolean.
     public static void setNight(boolean test) {
         night = test;
+    }
+
+    //Setter for the list of points for the graph.
+    public static void setList(ArrayList<Long> tmp) {
+        speeds = tmp;
     }
 
     @Override
@@ -75,18 +83,18 @@ public class GraphView extends View {
         int yaxis = getHeight() - 250;
 
         //Defining the number of points needed.
-        int nbpoints = speeds.length;
+        int nbpoints = speeds.size();
 
         //Defining the axis units.
         int xunit = xaxis / nbpoints;
         int yunit = yaxis / 10;
 
         for (int i = 0; i < nbpoints; i++) {
-            canvas.drawLine(i * xunit + 125, (10 - speeds[i]) * yunit + 100, i * xunit + 175, (10 - speeds[i]) * yunit + 100, paint);
-            canvas.drawLine(i * xunit + 150, (10 - speeds[i]) * yunit + 75, i * xunit + 150, (10 - speeds[i]) * yunit + 125, paint);
+            canvas.drawLine(i * xunit + 125, (10 - speeds.get(i)) * yunit + 100, i * xunit + 175, (10 - speeds.get(i)) * yunit + 100, paint);
+            canvas.drawLine(i * xunit + 150, (10 - speeds.get(i)) * yunit + 75, i * xunit + 150, (10 - speeds.get(i)) * yunit + 125, paint);
 
             if (i > 0) {
-                canvas.drawLine((i - 1) * xunit + 150, (10 - speeds[i - 1]) * yunit + 100, i * xunit + 150, (10 - speeds[i]) * yunit + 100, paint);
+                canvas.drawLine((i - 1) * xunit + 150, (10 - speeds.get(i - 1)) * yunit + 100, i * xunit + 150, (10 - speeds.get(i)) * yunit + 100, paint);
             }
         }
     }
