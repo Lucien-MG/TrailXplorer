@@ -49,6 +49,7 @@ public class SavedRunActivity extends AppCompatActivity {
         id = getIntent().getLongExtra("id", 0);
 
         //Load the gps object from the database.
+        gps = new GpsHelper(this, )
         gps.loadInDataBase(id);
 
         //Initializing the textViews.
