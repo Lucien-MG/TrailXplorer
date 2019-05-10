@@ -24,13 +24,14 @@ public class SqlHelper extends SQLiteOpenHelper {
 
     private static final String create_table = "create table GPSdataBase("
             + "ID integer primary key autoincrement, "
-            + "AVE_SPEED int,"
-            + "TT_DISTANCE int,"
-            + "MIN_ALT int,"
-            + "MAX_ALT int,"
-            + "AVE_ALT int,"
+            + "AVE_SPEED integer,"
+            + "TT_DISTANCE integer,"
+            + "MIN_ALT integer,"
+            + "MAX_ALT integer,"
+            + "AVE_ALT integer,"
+            + "NAME string,"
             + "TIME string"
             + ")";
 
-    private static final String drop_table = "drop table test";
+    private static final String drop_table = "drop table GPSdataBase";
 }
