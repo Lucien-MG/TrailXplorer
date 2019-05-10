@@ -36,7 +36,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     private static final String drop_table = "drop table GPSdataBase";
 
     public void deleteSingleNote(String id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("GPSdataBase", "ID= '" + id + "'", null);
+        SQLiteDatabase sdb = this.getWritableDatabase();
+        sdb.delete("GPSdataBase", "ID= '" + id + "'", null);
     }
 }
