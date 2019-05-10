@@ -248,6 +248,7 @@ public class GpsHelper {
         cv.put("AVE_ALT", averageAltitude);
         cv.put("NAME", name);
         cv.put("TIME", timeRan);
+        cv.put("ALL_SPEED", dataSpeed.toString());
 
         return sdb.insert("GPSdataBase", null, cv);
     }
@@ -261,7 +262,7 @@ public class GpsHelper {
         // name of the table to query
         String table_name = "GPSdataBase";
         // the columns that we wish to retrieve from the tables
-        String[] columns = {"ID", "AVE_SPEED", "TT_DISTANCE", "MIN_ALT", "MAX_ALT", "AVE_ALT", "NAME", "TIME"};
+        String[] columns = {"ID", "AVE_SPEED", "TT_DISTANCE", "MIN_ALT", "MAX_ALT", "AVE_ALT", "NAME", "TIME", "ALL_SPEED"};
         // where clause of the query. DO NOT WRITE WHERE IN THIS
         String where = null;
         // arguments to provide to the where clauseString
@@ -283,11 +284,32 @@ public class GpsHelper {
                 this.MinAltitude = c.getInt(3);
                 this.MaxAltitude = c.getInt(4);
                 this.averageAltitude = c.getInt(5);
+                this.time = c.getString(7);
                 this.name = c.getString(6);
+                this.dataSpeed = fromStringToArrayListLong(c.getString(8));
                 break;
             }
             Log.e("test", "Move");
             c.moveToNext();
         }
+    }
+
+    public ArrayList<Long> fromStringToArrayListLong(String s) {
+        ArrayList<Long> arr = new ArrayList<>();
+        Log.e("test", "fromStringToArrayListLong: " + s);
+
+        int pos = 0;
+        long longID = 0;
+
+        while (s.charAt(pos) != ']') {
+            pos += 1;
+            longID = 0;
+            while (s.charAt(pos) < 58 && s.charAt(pos) > 47) {
+                longID = longID * 10 + (s.charAt(pos)-48);
+                pos += 1;
+            }
+        }
+
+        return arr;
     }
 }

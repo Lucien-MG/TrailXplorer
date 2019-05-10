@@ -30,7 +30,8 @@ public class SqlHelper extends SQLiteOpenHelper {
             + "MAX_ALT integer,"
             + "AVE_ALT integer,"
             + "NAME string,"
-            + "TIME string"
+            + "TIME string,"
+            + "ALL_SPEED string"
             + ")";
 
     private static final String drop_table = "drop table GPSdataBase";
