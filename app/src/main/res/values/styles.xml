@@ -6,13 +6,13 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundcolor">#FFFFFF</item>
-        <item name="cardbackground">#00BCD4</item>
+        <item name="cardbackground">#0A71B1</item>
         <item name="titlecolor">#FCFCFC</item>
-        <item name="textcolor1">#008294</item>
+        <item name="textcolor1">#34ACF4</item>
         <item name="textcolor2">#808080</item>
         <item name="tintcolor">#000000</item>
-        <item name="buttoncolor">#00BCD4</item>
-        <item name="colorControlActivated">#00BCD4</item>
+        <item name="buttoncolor">#0A71B1</item>
+        <item name="colorControlActivated">#0A71B1</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
@@ -21,14 +21,14 @@
         <item name="colorPrimary">#212121</item>
         <item name="colorPrimaryDark">#000000</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="backgroundcolor">#00000A</item>
-        <item name="cardbackground">#BF000032</item>
+        <item name="backgroundcolor">#101922</item>
+        <item name="cardbackground">#0A71B1</item>
         <item name="titlecolor">#FCFCFC</item>
-        <item name="textcolor1">#5E35B1</item>
-        <item name="textcolor2">#FFFFFF</item>
+        <item name="textcolor1">#FCFCFC</item>
+        <item name="textcolor2">#808080</item>
         <item name="tintcolor">#FFFFFF</item>
-        <item name="buttoncolor">#270A5E</item>
-        <item name="colorControlActivated">#270A5E</item>
+        <item name="buttoncolor">#0A71B1</item>
+        <item name="colorControlActivated">#0A71B1</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
@@ -41,7 +41,7 @@
     <!-- Light Alert Dialog. -->
     <style name="LightAlertDialog" parent="@style/Theme.AppCompat.DayNight.Dialog.Alert">
         <item name="android:textColor">#808080</item>
-        <item name="android:colorBackground">#E6F3FA</item>
+        <item name="android:colorBackground">#FFFFFF</item>
         <item name="android:textColorPrimary">#808080</item>
         <item name="android:textColorSecondary">#808080</item>
     </style>
