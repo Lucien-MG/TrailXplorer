@@ -31,6 +31,9 @@ public class SavedActivity extends AppCompatActivity {
     private SimpleAdapter adapter;
     private List<HashMap<String, String>> list;
 
+    private SqlHelper dataBase;
+    private SQLiteDatabase sdb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Setting the style depending on the activation of the night mode.
@@ -51,6 +54,9 @@ public class SavedActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(android.R.drawable.ic_menu_sort_by_size);
         ab.setDisplayHomeAsUpEnabled(true);
+
+        dataBase = new SqlHelper(this, "GPSdataBase", null, 1);
+        sdb = dataBase.getWritableDatabase();
 
         initList();
     }
@@ -166,6 +172,9 @@ public class SavedActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Delete the run.
+                        String runId = list.get(pos).get("id");
+                        dataBase.deleteSingleNote(runId);
+                        initList();
                     }
                 });
 
@@ -186,9 +195,6 @@ public class SavedActivity extends AppCompatActivity {
     }
 
     private void fillHashMap() {
-        SqlHelper dataBase = new SqlHelper(this, "GPSdataBase", null, 1);
-        SQLiteDatabase sdb = dataBase.getWritableDatabase();
-
         // name of the table to query
         String table_name = "GPSdataBase";
         // the columns that we wish to retrieve from the tables
