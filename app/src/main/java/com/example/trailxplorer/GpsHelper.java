@@ -1,7 +1,6 @@
 package com.example.trailxplorer;
 
 import android.Manifest;
-import android.app.Activity;
 
 // Content import:
 import android.content.ContentValues;
@@ -55,6 +54,9 @@ public class GpsHelper {
     public ArrayList<Long> dataAltitude;
     public ArrayList<String> dataDate;
     public ArrayList<Location> dataLocation;
+
+    // Time since last update
+    long lastUpdateTime = 0;
 
     // Contain message send by gps:
     private Toast toast;
@@ -191,11 +193,11 @@ public class GpsHelper {
 
     public void printFromSave() {
         tv_uiInterface.get("timerun").setText(this.time);
-        tv_uiInterface.get("totDist").setText(this.TotalDistance + " km" + " m");
-        tv_uiInterface.get("aveSpeed").setText(this.speed + " km/h");
+        tv_uiInterface.get("totDist").setText(String.format("%.2f km", (float) TotalDistance / 1000));
+        tv_uiInterface.get("aveSpeed").setText(this.averageSpeed + " km/h");
         tv_uiInterface.get("minAlt").setText(this.MinAltitude + " m");
-        tv_uiInterface.get("maxAlt").setText(this.averageAltitude + " m");
-        tv_uiInterface.get("aveAlt").setText(this.MaxAltitude + " m");
+        tv_uiInterface.get("maxAlt").setText(this.MaxAltitude + " m");
+        tv_uiInterface.get("aveAlt").setText(this.averageAltitude + " m");
     }
 
     public void updateUI() {
@@ -213,9 +215,10 @@ public class GpsHelper {
 
         if (la != null) {
             TotalDistance += la.distanceTo(lb);
-            speed = (long)la.distanceTo(lb) / 5;
+            speed = (long)la.distanceTo(lb) / (System.currentTimeMillis() - lastUpdateTime);
         }
 
+        lastUpdateTime = System.currentTimeMillis();
         la = lb;
 
         // Update database:
@@ -254,8 +257,6 @@ public class GpsHelper {
     }
 
     public void loadFromDataBase(long id) {
-        Log.e("test", "loadFromDataBase: " + id);
-
         SqlHelper dataBase = new SqlHelper(ActivityContext, "GPSdataBase", null, 1);
         SQLiteDatabase sdb = dataBase.getWritableDatabase();
 
@@ -279,25 +280,23 @@ public class GpsHelper {
         for(int i = 0; i < c.getCount(); i++) {
             if (c.getLong(0) == id) {
                 Log.e("test", "Found");
-                this.averageAltitude = c.getInt(1);
+                this.averageSpeed = c.getInt(1);
                 this.TotalDistance = c.getInt(2);
                 this.MinAltitude = c.getInt(3);
                 this.MaxAltitude = c.getInt(4);
                 this.averageAltitude = c.getInt(5);
                 this.time = c.getString(7);
                 this.name = c.getString(6);
-                Log.e("test", "loadFromDataBase: " + fromStringToArrayListLong(c.getString(8)).toString());
                 this.dataSpeed = fromStringToArrayListLong(c.getString(8));
                 break;
             }
-            Log.e("test", "Move");
+
             c.moveToNext();
         }
     }
 
     public ArrayList<Long> fromStringToArrayListLong(String s) {
         ArrayList<Long> arr = new ArrayList<>();
-        Log.e("test", "fromStringToArrayListLong: " + s);
 
         int pos = 0;
         long longID = 0;

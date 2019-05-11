@@ -21,13 +21,6 @@ public class SavedRunActivity extends AppCompatActivity {
 
     Map<String, TextView> tv_uiInterface = new HashMap<String, TextView>();
 
-    private TextView timerun;
-    private TextView totDist;
-    private TextView aveSpeed;
-    private TextView minAlt;
-    private TextView aveAlt;
-    private TextView maxAlt;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Setting the style depending on the activation of the night mode.
