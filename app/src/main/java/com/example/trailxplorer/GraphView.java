@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class GraphView extends View {
 
     private Paint paint;
+    private Paint textPaint;
 
     private static boolean night;
 
@@ -36,14 +37,21 @@ public class GraphView extends View {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStrokeWidth(5f);
 
+        //Paint instance for drawing the text.
+        textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        textPaint.setStrokeWidth(5f);
+        textPaint.setTextSize(100f);
+
         //Setting the style depending on the activation of the night mode.
         if (night) {
             setBackgroundColor(0xFF00000A);
             paint.setColor(0xFFFFFFFF);
+            textPaint.setColor(0xFFFFFFFF);
         }
         else {
             setBackgroundColor(0xFFFFFFFF);
             paint.setColor(0xFF808080);
+            textPaint.setColor(0xFF808080);
         }
     }
 
@@ -79,24 +87,45 @@ public class GraphView extends View {
 
         //Defining the axis lengths.
         int xaxis = getWidth() - 300;
-        int yaxis = getHeight() - 250;
+        int yaxis = getHeight() - 300;
 
         //Defining the number of points needed.
         int nbpoints = speeds.size();
 
-        //Defining the axis units.
-        if (nbpoints > 0) {
+        if (nbpoints > 1) {
+
+            //Defining the axis units.
             int xunit = xaxis / nbpoints;
             int yunit = yaxis / 10;
 
-            for (int i = 0; i < nbpoints; i++) {
-                canvas.drawLine(i * xunit + 125, (10 - speeds.get(i)) * yunit + 100, i * xunit + 175, (10 - speeds.get(i)) * yunit + 100, paint);
-                canvas.drawLine(i * xunit + 150, (10 - speeds.get(i)) * yunit + 75, i * xunit + 150, (10 - speeds.get(i)) * yunit + 125, paint);
+            for (int j = 0; j < 10; j++) {
+                //Creating the marks at each unit on the y-axis.
+                canvas.drawLine(150, j * yunit + 150, 162, j * yunit + 150, paint);
+            }
+
+            int i = 0;
+
+            while (i < nbpoints) {
+
+                //Creating the crosses corresponding to the points of the run.
+                canvas.drawLine(i * xunit + 125, (10 - speeds.get(i)) * yunit + 150, i * xunit + 175, (10 - speeds.get(i)) * yunit + 150, paint);
+                canvas.drawLine(i * xunit + 150, (10 - speeds.get(i)) * yunit + 125, i * xunit + 150, (10 - speeds.get(i)) * yunit + 175, paint);
+
+                //Creating the marks at each unit on the x-axis.
+                canvas.drawLine(i * xunit + 150, getHeight() - 150, i * xunit + 150, getHeight() - 162, paint);
 
                 if (i > 0) {
-                    canvas.drawLine((i - 1) * xunit + 150, (10 - speeds.get(i - 1)) * yunit + 100, i * xunit + 150, (10 - speeds.get(i)) * yunit + 100, paint);
+                    //Creating the lines between the crosses.
+                    canvas.drawLine((i - 1) * xunit + 150, (10 - speeds.get(i - 1)) * yunit + 150, i * xunit + 150, (10 - speeds.get(i)) * yunit + 150, paint);
                 }
+
+                i += (1 + nbpoints / 10);
             }
+        }
+
+        else {
+            //Case where there are no speed recorded (run was too short).
+            canvas.drawText("Nothing to show", 200, getHeight() / 2f, textPaint);
         }
     }
 }
