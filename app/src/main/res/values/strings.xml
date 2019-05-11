@@ -24,6 +24,7 @@
     <!-- Options Activity Strings. -->
     <string name="night_mode">Night Mode</string>
     <string name="eco_mode">Economy Mode</string>
+    <string name="gps_mode">Use Network for Location</string>
 
     <!-- Button Strings. -->
     <string name="start_btn">Start</string>
