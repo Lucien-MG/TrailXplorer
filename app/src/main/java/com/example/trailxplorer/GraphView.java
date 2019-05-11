@@ -104,24 +104,22 @@ public class GraphView extends View {
             }
 
             int i = 0;
-            int j = 0;
 
             while (i < nbpoints) {
 
                 //Creating the crosses corresponding to the points of the run.
-                canvas.drawLine(j * xunit + 125, (10 - speeds.get(i)) * yunit + 150, j * xunit + 175, (10 - speeds.get(i)) * yunit + 150, paint);
-                canvas.drawLine(j * xunit + 150, (10 - speeds.get(i)) * yunit + 125, j * xunit + 150, (10 - speeds.get(i)) * yunit + 175, paint);
+                canvas.drawLine(i * xunit + 125, (10 - speeds.get(i)) * yunit + 150, i * xunit + 175, (10 - speeds.get(i)) * yunit + 150, paint);
+                canvas.drawLine(i * xunit + 150, (10 - speeds.get(i)) * yunit + 125, i * xunit + 150, (10 - speeds.get(i)) * yunit + 175, paint);
 
                 //Creating the marks at each unit on the x-axis.
-                canvas.drawLine(j * xunit + 150, getHeight() - 150, j * xunit + 150, getHeight() - 162, paint);
+                canvas.drawLine(i * xunit + 150, getHeight() - 150, i * xunit + 150, getHeight() - 162, paint);
 
                 if (i > 0) {
                     //Creating the lines between the crosses.
-                    canvas.drawLine((j - 1) * xunit + 150, (10 - speeds.get(i - (1 + nbpoints / 10))) * yunit + 150, j * xunit + 150, (10 - speeds.get(i)) * yunit + 150, paint);
+                    canvas.drawLine((i - 1) * xunit + 150, (10 - speeds.get(i - (1 + nbpoints / 10))) * yunit + 150, i * xunit + 150, (10 - speeds.get(i)) * yunit + 150, paint);
                 }
 
                 i += (1 + nbpoints / 10);
-                j++;
             }
         }
 
