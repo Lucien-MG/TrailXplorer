@@ -3,6 +3,7 @@ package com.example.trailxplorer;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -46,11 +47,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        appContext = this;
+
+        AppDataBase dataBase = new AppDataBase(appContext, "trailXplorerData", null, 1);
+        SQLiteDatabase sdb = dataBase.getWritableDatabase();
+
         //Setting the style depending on the activation of the night mode.
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+        if (dataBase.getState(sdb,1)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             setTheme(R.style.DarkAppTheme);
-        else
+        }
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             setTheme(R.style.LightAppTheme);
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -74,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
         initMainButton();
         initPauseButton();
-        appContext = this;
     }
 
     //Initializes the Toolbar.
