@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.popup_menu, popup.getMenu());
 
-            //Handles click on the popup menu.
+            //Handles click on the popup menu items.
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                  public boolean onMenuItemClick(MenuItem item) {
                      switch(item.getItemId()) {
@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
             popup.dismiss();
     }
 
+    //Initializes the main button, used to start and stop the gps.
     private void initMainButton() {
         Button MainButton = (Button) findViewById(R.id.startBtn);
 
@@ -163,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Initializes the main button, used to pause the gps.
     private void initPauseButton() {
         Button PauseButton = (Button) findViewById(R.id.pauseBtn);
 
@@ -186,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Initializes the HashMap, containing the main activity textViews.
     private void initUiInterface() {
         tv_uiInterface.put("current_speed", (TextView) findViewById(R.id.curSpeed));
         tv_uiInterface.put("current_altitude", (TextView) findViewById(R.id.curAlt));
@@ -194,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         tv_uiInterface.put("maximum_altitude", (TextView) findViewById(R.id.maxAlt));
     }
 
+    //Asks for the permissions required for the app to work.
     private void askPermissions() {
         // List of permissions needed:
         String[] perms = new String[]{
@@ -203,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.INTERNET};
 
-        // Request Permission to acces to the GPS:
+        // Request Permission to access to the GPS:
         ActivityCompat.requestPermissions(this, perms, RequestAnswer);
     }
 }
