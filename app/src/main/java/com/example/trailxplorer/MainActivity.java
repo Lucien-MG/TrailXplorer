@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -149,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                     gps.saveInDataBase(timer.getTime());
                     timer.stop();
                     gps = null;
-                    b.setText("Start");
+                    b.setText(R.string.start_btn);
 
                     Intent intent = new Intent(MainActivity.this, SavedActivity.class);
                     intent.putExtra("FromStopBtn", true);
@@ -158,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                     gps = new GpsHelper(appContext, tv_uiInterface, Calendar.getInstance().getTime().toString());
                     timer.start();
                     gps.start();
-                    b.setText("Stop");
+                    b.setText(R.string.stop_btn);
                 }
             }
         });
@@ -176,11 +175,11 @@ public class MainActivity extends AppCompatActivity {
                     if (b.getText().equals("Pause")) {
                         gps.pause();
                         timer.stop();
-                        b.setText("Continue");
+                        b.setText(R.string.continue_btn);
                     } else {
                         timer.startAgain();
                         gps.startAgain();
-                        b.setText("Pause");
+                        b.setText(R.string.pause_btn);
                     }
                 }
             }

@@ -30,6 +30,8 @@
     <!-- Button Strings. -->
     <string name="start_btn">Start</string>
     <string name="pause_btn">Pause</string>
+    <string name="stop_btn">Stop</string>
+    <string name="continue_btn">Continue</string>
 
     <!-- Popup Menu Strings. -->
     <string name="new_run">New Run</string>
