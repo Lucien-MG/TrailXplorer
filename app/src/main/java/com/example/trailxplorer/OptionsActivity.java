@@ -16,6 +16,7 @@ import android.widget.Switch;
 public class OptionsActivity extends AppCompatActivity {
 
     private Switch nightMode;
+    private Switch useNetwork;
 
     private PopupMenu popupOptions;
 
@@ -58,6 +59,14 @@ public class OptionsActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), OptionsActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        useNetwork = findViewById(R.id.gpsModeSwitch);
+        useNetwork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

@@ -59,6 +59,15 @@ public class SavedActivity extends AppCompatActivity {
         sdb = dataBase.getWritableDatabase();
 
         initList();
+
+        if (getIntent().getBooleanExtra("FromStopBtn", false)) {
+            Intent intent = new Intent(SavedActivity.this, SavedRunActivity.class);
+
+            // Pass gps.
+            intent.putExtra("id", list.get(list.size() - 1).get("id"));
+
+            startActivity(intent);
+        }
     }
 
     @Override

@@ -165,9 +165,13 @@ public class GpsHelper {
 
     public void pause() {
         lm.removeUpdates(ll);
+        lm = null;
+        la = null;
     }
 
     public void startAgain() {
+        lm = (LocationManager) ActivityContext.getSystemService(ActivityContext.LOCATION_SERVICE);
+        this.addLocationListener();
     }
 
     public void stop() {
@@ -187,7 +191,9 @@ public class GpsHelper {
         if (dataAltitude.size() != 0)
             averageAltitude = averageAltitude / dataAltitude.size();
 
-        lm.removeUpdates(ll);
+        if (lm != null)
+            lm.removeUpdates(ll);
+
         lm = null;
     }
 
@@ -215,7 +221,10 @@ public class GpsHelper {
 
         if (la != null) {
             TotalDistance += la.distanceTo(lb);
-            speed = (long)la.distanceTo(lb) / (System.currentTimeMillis() - lastUpdateTime);
+            if (location.getSpeed() == 0)
+                speed = (long)la.distanceTo(lb) / ((System.currentTimeMillis() - lastUpdateTime) / 1100);
+            else
+                speed = (long)location.getSpeed();
         }
 
         lastUpdateTime = System.currentTimeMillis();
@@ -279,7 +288,6 @@ public class GpsHelper {
         c.moveToFirst();
         for(int i = 0; i < c.getCount(); i++) {
             if (c.getLong(0) == id) {
-                Log.e("test", "Found");
                 this.averageSpeed = c.getInt(1);
                 this.TotalDistance = c.getInt(2);
                 this.MinAltitude = c.getInt(3);

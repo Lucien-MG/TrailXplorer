@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         timer = new TimerHelper((TextView) findViewById(R.id.timeRun));
 
         initMainButton();
+        initPauseButton();
         appContext = this;
     }
 
@@ -121,9 +122,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        if (popup != null) {
+        if (popup != null)
             popup.dismiss();
-        }
     }
 
     //Handles the activity destroy, to dismiss the popup.
@@ -131,9 +131,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        if (popup != null) {
+        if (popup != null)
             popup.dismiss();
-        }
     }
 
     private void initMainButton() {
@@ -151,11 +150,38 @@ public class MainActivity extends AppCompatActivity {
                     timer.stop();
                     gps = null;
                     b.setText("Start");
+
+                    Intent intent = new Intent(MainActivity.this, SavedActivity.class);
+                    intent.putExtra("FromStopBtn", true);
+                    startActivity(intent);
                 } else {
                     gps = new GpsHelper(appContext, tv_uiInterface, Calendar.getInstance().getTime().toString());
                     timer.start();
                     gps.start();
                     b.setText("Stop");
+                }
+            }
+        });
+    }
+
+    private void initPauseButton() {
+        Button PauseButton = (Button) findViewById(R.id.pauseBtn);
+
+        PauseButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Button b = (Button) v;
+                if (gps != null) {
+                    if (b.getText().equals("Pause")) {
+                        gps.pause();
+                        timer.stop();
+                        b.setText("Continue");
+                    } else {
+                        timer.startAgain();
+                        gps.startAgain();
+                        b.setText("Pause");
+                    }
                 }
             }
         });

@@ -44,6 +44,10 @@ public class TimerHelper {
         timerHandler.postDelayed(timerRunnable, 0);
     }
 
+    public void startAgain() {
+        timerHandler.postDelayed(timerRunnable, 0);
+    }
+
     public void stop() {
         timerHandler.removeCallbacks(timerRunnable);
     }
