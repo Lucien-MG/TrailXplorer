@@ -1,6 +1,10 @@
 package com.example.trailxplorer;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,9 +20,11 @@ import android.widget.Switch;
 public class OptionsActivity extends AppCompatActivity {
 
     private Switch nightMode;
+    private Switch economyMode;
     private Switch useNetwork;
 
     private PopupMenu popupOptions;
+    private Context ActivityContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,8 @@ public class OptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
 
+        ActivityContext = this;
+
         //Initializing the Toolbar.
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -44,7 +52,10 @@ public class OptionsActivity extends AppCompatActivity {
 
         //Setting the nightMode Switch and enabling it if necessary.
         nightMode = findViewById(R.id.nightModeSwitch);
-        nightMode.setChecked(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
+        economyMode = findViewById(R.id.ecoModeSwitch);
+        useNetwork = findViewById(R.id.gpsModeSwitch);
+
+        setBtnState();
 
         nightMode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,14 +70,21 @@ public class OptionsActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), OptionsActivity.class);
                 startActivity(intent);
                 finish();
+                updateDataBase();
             }
         });
 
-        useNetwork = findViewById(R.id.gpsModeSwitch);
         useNetwork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateDataBase();
+            }
+        });
 
+        economyMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDataBase();
             }
         });
     }
@@ -127,5 +145,70 @@ public class OptionsActivity extends AppCompatActivity {
         if (popupOptions != null) {
             popupOptions.dismiss();
         }
+    }
+
+    private void setBtnState() {
+        try {
+            AppDataBase dataBase = new AppDataBase(ActivityContext, "trailXplorerData", null, 1);
+            SQLiteDatabase sdb = dataBase.getWritableDatabase();
+
+            // name of the table to query
+            String table_name = "trailXplorerData";
+            // the columns that we wish to retrieve from the tables
+            String[] columns = {"ID", "NIGHT_MODE", "ECONOMY_MODE", "NETWORK_MODE"};
+            // where clause of the query. DO NOT WRITE WHERE IN THIS
+            String where = null;
+            // arguments to provide to the where clauseString
+            String where_args[] = null;
+            // group by clause of the query. DO NOT WRITE GROUP BY IN THIS
+            String group_by = null;
+            // having clause of the query. DO NOT WRITE HAVING IN THIS
+            String having = null;
+            // order by clause of the query. DO NOT WRITE ORDER BY IN THIS
+            String order_by = null;
+
+            Cursor c = sdb.query(table_name, columns, where, where_args, group_by, having, order_by);
+            c.moveToFirst();
+
+            nightMode.setChecked(c.getInt(1) == 1);
+            economyMode.setChecked(c.getInt(2) == 1);
+            useNetwork.setChecked(c.getInt(3) == 1);
+
+            sdb.close();
+        }catch (Exception e) {
+            AppDataBase dataBase = new AppDataBase(ActivityContext, "trailXplorerData", null, 1);
+            SQLiteDatabase sdb = dataBase.getWritableDatabase();
+            ContentValues cv = new ContentValues();
+
+            cv.put("NIGHT_MODE", boolToInt(nightMode.isChecked()));
+            cv.put("ECONOMY_MODE", boolToInt(economyMode.isChecked()));
+            cv.put("NETWORK_MODE", boolToInt(useNetwork.isChecked()));
+
+            dataBase.onCreate(sdb);
+            sdb.insert("trailXplorerData", null, cv);
+        }
+    }
+
+    private void updateDataBase() {
+        AppDataBase dataBase = new AppDataBase(ActivityContext, "trailXplorerData", null, 1);
+        SQLiteDatabase sdb = dataBase.getWritableDatabase();
+
+        dataBase.delete();
+
+        ContentValues cv = new ContentValues();
+
+        cv.put("NIGHT_MODE", nightMode.isChecked());
+        cv.put("ECONOMY_MODE", economyMode.isChecked());
+        cv.put("NETWORK_MODE", useNetwork.isChecked());
+
+        sdb.insert("trailXplorerData", null, cv);
+        sdb.close();
+    }
+
+    private int boolToInt(boolean b) {
+        if (b)
+            return 1;
+        else
+            return 0;
     }
 }

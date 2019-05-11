@@ -34,6 +34,9 @@ public class GpsHelper {
     // Location provider:
     private String locationProvider;
 
+    // Min time update:
+    private long minTime = 5000;
+
     // Location:
     private LocationManager lm;
     private LocationListener ll;
@@ -70,8 +73,20 @@ public class GpsHelper {
     public GpsHelper(Context context, Map<String, TextView> uiInterface, String name) {
         this.name = name;
 
-        // Affect Location provider:
-        locationProvider = LocationManager.NETWORK_PROVIDER;
+        AppDataBase dataBase = new AppDataBase(context, "trailXplorerData", null, 1);
+        SQLiteDatabase sdb = dataBase.getWritableDatabase();
+
+        if (dataBase.getState(sdb,3))
+            locationProvider = LocationManager.NETWORK_PROVIDER; // Affect Location provider
+        else
+            locationProvider = LocationManager.GPS_PROVIDER;
+
+        if (dataBase.getState(sdb,2))
+            minTime = 20000; // Affect Location provider
+        else
+            minTime = 5000;
+
+        sdb.close();
 
         // Get application context:
         ActivityContext = context;
