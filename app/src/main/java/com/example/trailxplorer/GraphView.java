@@ -116,7 +116,7 @@ public class GraphView extends View {
 
                 if (i > 0) {
                     //Creating the lines between the crosses.
-                    canvas.drawLine((i - 1) * xunit + 150, (10 - speeds.get(i - 1)) * yunit + 150, i * xunit + 150, (10 - speeds.get(i)) * yunit + 150, paint);
+                    canvas.drawLine((i - 1) * xunit + 150, (10 - speeds.get(i - (1 + nbpoints / 10))) * yunit + 150, i * xunit + 150, (10 - speeds.get(i)) * yunit + 150, paint);
                 }
 
                 i += (1 + nbpoints / 10);
