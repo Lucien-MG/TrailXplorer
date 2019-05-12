@@ -169,7 +169,7 @@ public class GpsHelper {
             }
         };
 
-        lm.requestLocationUpdates(locationProvider, 5000, 0, ll);
+        lm.requestLocationUpdates(locationProvider, minTime, 0, ll);
     }
 
     public void start() {
