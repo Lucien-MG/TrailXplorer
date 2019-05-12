@@ -184,7 +184,6 @@ public class OptionsActivity extends AppCompatActivity {
             cv.put("ECONOMY_MODE", boolToInt(economyMode.isChecked()));
             cv.put("NETWORK_MODE", boolToInt(useNetwork.isChecked()));
 
-            dataBase.onCreate(sdb);
             sdb.insert("trailXplorerData", null, cv);
             sdb.close();
         }
