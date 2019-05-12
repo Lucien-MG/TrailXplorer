@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.INTERNET,
+                Manifest.permission.INTERNET};
 
         // Request Permission to access to the GPS:
         ActivityCompat.requestPermissions(this, perms, RequestAnswer);
