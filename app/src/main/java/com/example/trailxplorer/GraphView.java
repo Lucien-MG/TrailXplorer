@@ -44,9 +44,9 @@ public class GraphView extends View {
 
         //Setting the style depending on the activation of the night mode.
         if (night) {
-            setBackgroundColor(0xFF00000A);
-            paint.setColor(0xFFFFFFFF);
-            textPaint.setColor(0xFFFFFFFF);
+            setBackgroundColor(0xFF101922);
+            paint.setColor(0xFFFCFCFC);
+            textPaint.setColor(0xFFFCFCFC);
         }
         else {
             setBackgroundColor(0xFFFFFFFF);
