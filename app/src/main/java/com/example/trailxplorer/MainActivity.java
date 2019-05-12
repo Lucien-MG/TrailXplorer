@@ -1,23 +1,37 @@
 package com.example.trailxplorer;
 
+// Manifest:
 import android.Manifest;
+
+// Import Content:
 import android.content.Context;
 import android.content.Intent;
+
+// Import DataBase:
 import android.database.sqlite.SQLiteDatabase;
+
+// Import Os:
+import android.os.Bundle;
+
+// Import Support:
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.Toolbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.Toolbar;
+
+// Import View:
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
+// Import Widget:
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+// Import Java utils:
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,8 +61,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Save context in variable:
         appContext = this;
 
+        // Access data base to get application parameters:
         AppDataBase dataBase = new AppDataBase(appContext, "trailXplorerData", null, 1);
         SQLiteDatabase sdb = dataBase.getWritableDatabase();
 
@@ -62,9 +78,13 @@ public class MainActivity extends AppCompatActivity {
             setTheme(R.style.LightAppTheme);
         }
 
+        // Close database:
+        sdb.close();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Ask applications permissions
         askPermissions();
 
         //Initializing the Toolbar.
@@ -76,12 +96,16 @@ public class MainActivity extends AppCompatActivity {
         ab.setHomeAsUpIndicator(android.R.drawable.ic_menu_sort_by_size);
         ab.setDisplayHomeAsUpEnabled(true);
 
+        // Get text view for the gps:
         initUiInterface();
 
+        // Init gps
         gpx = new GpxHelper(MainActivity.this, this);
 
+        // Init timer
         timer = new TimerHelper((TextView) findViewById(R.id.timeRun));
 
+        // Affect button function:
         initMainButton();
         initPauseButton();
     }
@@ -214,7 +238,8 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.INTERNET};
+                Manifest.permission.INTERNET,
+        Manifest.permission.CONTROL_LOCATION_UPDATES};
 
         // Request Permission to access to the GPS:
         ActivityCompat.requestPermissions(this, perms, RequestAnswer);

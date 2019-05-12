@@ -6,11 +6,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -96,12 +94,14 @@ public class SavedRunActivity extends AppCompatActivity {
 
         Intent intent = new Intent(Intent.ACTION_SEND);
 
+        //this.grantUriPermission(this.getPackageName(),this.uri);
+
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, message);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
         intent.setType("message/rfc822");
         startActivity(Intent.createChooser(intent, "Choose a way to send your note: "));
-
     }
 
     private long convertID(String id) {
