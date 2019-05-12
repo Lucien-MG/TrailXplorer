@@ -186,6 +186,7 @@ public class OptionsActivity extends AppCompatActivity {
 
             dataBase.onCreate(sdb);
             sdb.insert("trailXplorerData", null, cv);
+            sdb.close();
         }
     }
 

@@ -228,11 +228,13 @@ public class SavedActivity extends AppCompatActivity {
             //Filling the Hashmap and the list.
             item.put("title", c.getString(6).substring(0,19));
             item.put("time", "Time: " + c.getString(7));
-            item.put("distance", "Distance: " + c.getInt(2));
+            item.put("distance", "Distance: " + String.format("%.2f km", (float) c.getInt(2) / 1000));
             item.put("id", "" + c.getLong(0));
             list.add(item);
 
             c.moveToNext();
         }
+
+        sdb.close();
     }
 }

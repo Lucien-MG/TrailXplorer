@@ -237,7 +237,7 @@ public class GpsHelper {
         if (la != null) {
             TotalDistance += la.distanceTo(lb);
             if (location.getSpeed() == 0)
-                speed = (long)la.distanceTo(lb) / ((System.currentTimeMillis() - lastUpdateTime) / 1100);
+                speed = (long)la.distanceTo(lb) / ((System.currentTimeMillis() - lastUpdateTime) / 2000);
             else
                 speed = (long)location.getSpeed();
         }
@@ -316,6 +316,7 @@ public class GpsHelper {
 
             c.moveToNext();
         }
+        sdb.close();
     }
 
     public ArrayList<Long> fromStringToArrayListLong(String s) {
@@ -323,8 +324,6 @@ public class GpsHelper {
 
         int pos = 0;
         long longID = 0;
-
-        Log.e("Test", "fromStringToArrayListLong: " + s);
 
         while (pos < s.length() && s.charAt(pos) != ']') {
             pos += 1;
@@ -337,8 +336,6 @@ public class GpsHelper {
                 arr.add(longID);
             }
         }
-
-        Log.e("Test", "fromStringToArrayListLong: " + arr.toString());
 
         return arr;
     }

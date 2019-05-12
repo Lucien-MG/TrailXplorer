@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -67,6 +69,15 @@ public class SavedRunActivity extends AppCompatActivity {
         return true;
     }
 
+    //Handles clicks on the toolbar buttons.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.shareBtn) {
+            sharedButton();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void initUiInterface() {
         tv_uiInterface.put("timerun", (TextView) findViewById(R.id.timeRun));
         tv_uiInterface.put("totDist", (TextView) findViewById(R.id.totDist));
@@ -74,6 +85,23 @@ public class SavedRunActivity extends AppCompatActivity {
         tv_uiInterface.put("minAlt", (TextView) findViewById(R.id.minAlt));
         tv_uiInterface.put("maxAlt", (TextView) findViewById(R.id.maxAlt));
         tv_uiInterface.put("aveAlt", (TextView) findViewById(R.id.aveAlt));
+    }
+
+    private void sharedButton() {
+        String subject = "My trail: " + gps.name;
+        String message = "Time: " + gps.time + "\n" +
+                "Total Distance: " + String.format("%.2f km", (float) gps.TotalDistance / 1000) + "\n" +
+                "Average Speed: " + gps.averageSpeed + " km/h\n" +
+                "Average Altitude: + " + gps.averageAltitude + " m\n";
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+
+        intent.setType("message/rfc822");
+        startActivity(Intent.createChooser(intent, "Choose a way to send your note: "));
+
     }
 
     private long convertID(String id) {
