@@ -179,7 +179,8 @@ public class GpsHelper {
     }
 
     public void pause() {
-        lm.removeUpdates(ll);
+        if (lm != null && ll != null)
+            lm.removeUpdates(ll);
         lm = null;
         la = null;
     }
@@ -206,7 +207,7 @@ public class GpsHelper {
         if (dataAltitude.size() != 0)
             averageAltitude = averageAltitude / dataAltitude.size();
 
-        if (lm != null)
+        if (lm != null && ll != null)
             lm.removeUpdates(ll);
 
         lm = null;
