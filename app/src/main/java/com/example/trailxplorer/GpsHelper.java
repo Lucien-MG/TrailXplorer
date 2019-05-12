@@ -237,7 +237,7 @@ public class GpsHelper {
         if (la != null) {
             TotalDistance += la.distanceTo(lb);
             if (location.getSpeed() == 0)
-                speed = (long)la.distanceTo(lb) / ((System.currentTimeMillis() - lastUpdateTime) / 2000);
+                speed = (long)((la.distanceTo(lb) / ((System.currentTimeMillis() - lastUpdateTime) / 1000)) * 3.6);
             else
                 speed = (long)location.getSpeed();
         }

@@ -86,6 +86,8 @@ public class SavedRunActivity extends AppCompatActivity {
     }
 
     private void sharedButton() {
+        // This function uri permission
+        // Raise a non fatal error and is functional
         String subject = "My trail: " + gps.name;
         String message = "Time: " + gps.time + "\n" +
                 "Total Distance: " + String.format("%.2f km", (float) gps.TotalDistance / 1000) + "\n" +
