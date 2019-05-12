@@ -236,10 +236,10 @@ public class GpsHelper {
 
         if (la != null) {
             TotalDistance += la.distanceTo(lb);
-            if (location.getSpeed() == 0)
-                speed = (long)((la.distanceTo(lb) / ((System.currentTimeMillis() - lastUpdateTime) / 1000)) * 3.6);
+            if (location.getSpeed() == 0) // If the provider can't give speed (like network)
+                speed = (long)((la.distanceTo(lb) / ((System.currentTimeMillis() - lastUpdateTime) / 2000)) * 3.6);
             else
-                speed = (long)location.getSpeed();
+                speed = (long)(location.getSpeed() * 3.6);
         }
 
         lastUpdateTime = System.currentTimeMillis();
@@ -311,6 +311,7 @@ public class GpsHelper {
                 this.time = c.getString(7);
                 this.name = c.getString(6);
                 this.dataSpeed = fromStringToArrayListLong(c.getString(8));
+                this.dataSpeed = averageList(dataSpeed);
                 break;
             }
 
@@ -335,6 +336,34 @@ public class GpsHelper {
                 }
                 arr.add(longID);
             }
+        }
+
+        return arr;
+    }
+
+    // Calculate average to print it on the graph
+    public ArrayList<Long> averageList(ArrayList<Long> l) {
+        ArrayList<Long> arr = new ArrayList<>();
+
+        if (l.size() > 10) {
+            int nbValByGroup = (l.size() / 10) + 1;
+            int count = 0;
+            Long sum = new Long(0);
+
+            for (Long value: l) {
+                sum += value;
+                count += 1;
+
+                if (count == nbValByGroup) {
+                    arr.add(sum / nbValByGroup);
+
+                    count = 0;
+                    sum = new Long(0);
+                }
+            }
+
+            if (count != 0)
+                arr.add(sum / count);
         }
 
         return arr;
